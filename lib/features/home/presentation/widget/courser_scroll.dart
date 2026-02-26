@@ -24,7 +24,7 @@ class CourserScroll extends StatelessWidget {
 
     return CarouselSlider(
       options: CarouselOptions(
-        autoPlay: true,
+        autoPlay: false,
         enlargeCenterPage: true,
 
         height: 350.0,
