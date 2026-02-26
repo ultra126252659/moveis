@@ -5,3 +5,11 @@ class ChangeSelectedBottomNavBar extends HomeEvent{
   ChangeSelectedBottomNavBar(this.index);
 }
 
+class GetMovies extends HomeEvent{
+  GetMovies();
+}
+
+class ChangeBackgroundEvent extends HomeEvent {
+  final String imageUrl;
+  ChangeBackgroundEvent(this.imageUrl);
+}
