@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moves_final_project/core/resources/colors_app.dart';
 import 'package:moves_final_project/core/resources/image&icon.dart';
+import 'package:moves_final_project/di.dart';
 import 'package:moves_final_project/features/home/presentation/bloc/home_bloc.dart';
+import 'package:moves_final_project/features/home/presentation/bloc/home_event.dart';
 import 'package:moves_final_project/features/home/presentation/bloc/home_state.dart';
 import 'package:moves_final_project/features/home/presentation/screen/tabs/explore_tab.dart';
 import 'package:moves_final_project/features/home/presentation/screen/tabs/home_tab.dart';
@@ -16,7 +18,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => HomeBloc(),
+      create: (context) => getIt<HomeBloc>()..add(GetMovies()),
       child: Scaffold(
         extendBody: true,
         backgroundColor: ColorsApp.background,
