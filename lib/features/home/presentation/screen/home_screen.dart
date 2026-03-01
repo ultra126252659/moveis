@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moves_final_project/core/resources/colors_app.dart';
@@ -11,7 +12,7 @@ import 'package:moves_final_project/features/home/presentation/screen/tabs/home_
 import 'package:moves_final_project/features/home/presentation/screen/tabs/profile_tab.dart';
 import 'package:moves_final_project/features/home/presentation/screen/tabs/search_tab.dart';
 import 'package:moves_final_project/features/home/presentation/widget/bottom_nav_bar.dart';
-
+@RoutePage()
 class HomeScreen extends StatelessWidget {
    HomeScreen({super.key});
 

@@ -3,15 +3,17 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moves_final_project/di.dart';
 import 'package:moves_final_project/features/home/presentation/screen/home_screen.dart';
 
+import 'core/resources/auto_route.dart';
+
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   configureDependencies();
-  runApp(const MyApp());
+  runApp( MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+   MyApp({super.key});
+  final _appRouter = AppRouter();
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -19,9 +21,9 @@ class MyApp extends StatelessWidget {
         minTextAdapt: true,
         splitScreenMode: true,
       builder: (context,child){
-          return MaterialApp(
+          return MaterialApp.router(
             debugShowCheckedModeBanner: false,
-            home: HomeScreen(),
+            routerConfig: _appRouter.config(),
           );
       },
     );
