@@ -1,4 +1,5 @@
 
+
 class MoviesResponse {
   MoviesResponse({
       this.status,
@@ -6,6 +7,19 @@ class MoviesResponse {
       this.data,
       this.meta,});
 
+  MoviesResponse copyWith({
+    String? status,
+    String? statusMessage,
+    Data? data,
+    Meta? meta, required List<Movies> movies,
+  }) {
+    return MoviesResponse(
+      status: status ?? this.status,
+      statusMessage: statusMessage ?? this.statusMessage,
+      data: data ?? this.data,
+      meta: meta ?? this.meta,
+    );
+  }
   MoviesResponse.fromJson(dynamic json) {
     status = json['status'];
     statusMessage = json['status_message'];
@@ -89,11 +103,17 @@ class Migration {
 }
 
 class Data {
+  int? movieCount;
+  int? limit;
+  int? pageNumber;
+  List<Movies>? movies;
+
   Data({
-      this.movieCount,
-      this.limit,
-      this.pageNumber,
-      this.movies,});
+    this.movieCount,
+    this.limit,
+    this.pageNumber,
+    this.movies, // تأكد أن هذا المتغير موجود هنا
+  });
 
   Data.fromJson(dynamic json) {
     movieCount = json['movie_count'];
@@ -106,10 +126,6 @@ class Data {
       });
     }
   }
-  int? movieCount;
-  int? limit;
-  int? pageNumber;
-  List<Movies>? movies;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -122,7 +138,38 @@ class Data {
     return map;
   }
 
+  // *** أضف هذه الدالة copyWith هنا ***
+  Data copyWith({
+    int? movieCount,
+    int? limit,
+    int? pageNumber,
+    List<Movies>? movies,
+  }) {
+    return Data(
+      movieCount: movieCount ?? this.movieCount,
+      limit: limit ?? this.limit,
+      pageNumber: pageNumber ?? this.pageNumber,
+      movies: movies ?? this.movies, // الآن سيعمل هذا السطر بشكل صحيح
+    );
+  }
 }
+
+int? movieCount;
+int? limit;
+int? pageNumber;
+List<Movies>? movies;
+  Map<String, dynamic> toJson() {
+    final map = <String, dynamic>{};
+    map['movie_count'] = movieCount;
+    map['limit'] = limit;
+    map['page_number'] = pageNumber;
+    if (movies != null) {
+      map['movies'] = movies?.map((v) => v.toJson()).toList();
+    }
+    return map;
+  }
+
+
 
 class Movies {
   Movies({
@@ -247,6 +294,7 @@ class Movies {
   }
 
 }
+
 
 class Torrents {
   Torrents({

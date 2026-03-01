@@ -11,14 +11,12 @@ class HomeState {
   RequestStatus? getMoviesStatus;
   MoviesResponse? moviesResponse;
   String? errorMassage;
-  MoviesResponse? latestMoviesResponse;
-  MoviesResponse? popularMoviesResponse;
   int? currentIndex;
   String? currentBackground;
+  String? selectedCategory;
   HomeState({
     this.getMoviesStatus = RequestStatus.init,
-    this.latestMoviesResponse,
-    this.popularMoviesResponse,
+    this.selectedCategory,
     this.moviesResponse,
     this.errorMassage,
     this.currentBackground,
@@ -28,13 +26,13 @@ class HomeState {
     RequestStatus? getMoviesStatus,
     MoviesResponse? moviesResponse,
     String? errorMassage,
+    String? selectedCategory,
     String? currentBackground,}){
     return HomeState(
       getMoviesStatus: getMoviesStatus ?? this.getMoviesStatus,
       moviesResponse: moviesResponse ?? this.moviesResponse,
       errorMassage: errorMassage ?? this.errorMassage,
-      latestMoviesResponse: latestMoviesResponse ?? latestMoviesResponse,
-      popularMoviesResponse: popularMoviesResponse ?? popularMoviesResponse,
+      selectedCategory: selectedCategory ?? this.selectedCategory,
       currentBackground: currentBackground ?? this.currentBackground,
     );
   }

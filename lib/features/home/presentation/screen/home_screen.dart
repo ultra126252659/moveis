@@ -45,13 +45,7 @@ class HomeScreen extends StatelessWidget {
               );
             }
         ) ,
-        // bottomNavigationBar: Container(
-        //     height: 100,
-        //   decoration: BoxDecoration(
-        //      color: ColorsApp.surface,
-        //
-        //   ),
-        //     child: BottomNavBar()),
+
       ),
     );
   }

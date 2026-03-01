@@ -18,5 +18,6 @@ class IconApp {
 }
 class ImageApp {
   static String bgHome = "${PathImageAndIconApp.pathImage}/bg.jpg";
+  static String empty = "${PathImageAndIconApp.pathImage}/empty.png";
 
 }

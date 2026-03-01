@@ -8,6 +8,10 @@ class ChangeSelectedBottomNavBar extends HomeEvent{
 class GetMovies extends HomeEvent{
   GetMovies();
 }
+class GetNewMovies extends HomeEvent{
+
+  GetNewMovies();
+}
 
 class ChangeBackgroundEvent extends HomeEvent {
   final String imageUrl;
