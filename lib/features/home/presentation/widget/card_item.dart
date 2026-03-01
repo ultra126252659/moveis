@@ -46,7 +46,7 @@ class CardItem extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    "${rating}",
+                    "$rating",
                     style: StyleApp.smText,
                   ),
                   const SizedBox(width: 4),

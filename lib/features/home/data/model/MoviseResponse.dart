@@ -1,17 +1,22 @@
-
-
 class MoviesResponse {
   MoviesResponse({
-      this.status,
-      this.statusMessage,
-      this.data,
-      this.meta,});
+    this.status,
+    this.statusMessage,
+    this.data,
+    this.meta,
+  });
 
+  String? status;
+  String? statusMessage;
+  Data? data;
+  Meta? meta;
+
+  // *** تصحيح copyWith هنا ***
   MoviesResponse copyWith({
     String? status,
     String? statusMessage,
     Data? data,
-    Meta? meta, required List<Movies> movies,
+    Meta? meta,
   }) {
     return MoviesResponse(
       status: status ?? this.status,
@@ -20,16 +25,13 @@ class MoviesResponse {
       meta: meta ?? this.meta,
     );
   }
+
   MoviesResponse.fromJson(dynamic json) {
     status = json['status'];
     statusMessage = json['status_message'];
     data = json['data'] != null ? Data.fromJson(json['data']) : null;
-    meta = json['@meta'] != null ?  Meta.fromJson(json['@meta']) : null;
+    meta = json['@meta'] != null ? Meta.fromJson(json['@meta']) : null;
   }
-  String? status;
-  String? statusMessage;
-  Data? data;
-  Meta? meta;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -43,23 +45,24 @@ class MoviesResponse {
     }
     return map;
   }
-
 }
 
 class Meta {
   Meta({
-      this.migration,
-      this.apiVersion,
-      this.executionTime,});
+    this.migration,
+    this.apiVersion,
+    this.executionTime,
+  });
+
+  Migration? migration;
+  int? apiVersion;
+  String? executionTime;
 
   Meta.fromJson(dynamic json) {
     migration = json['migration'] != null ? Migration.fromJson(json['migration']) : null;
     apiVersion = json['api_version'];
     executionTime = json['execution_time'];
   }
-  Migration? migration;
-  int? apiVersion;
-  String? executionTime;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -70,15 +73,20 @@ class Meta {
     map['execution_time'] = executionTime;
     return map;
   }
-
 }
 
 class Migration {
   Migration({
-      this.message,
-      this.oldBase,
-      this.newBase,
-      this.sunset,});
+    this.message,
+    this.oldBase,
+    this.newBase,
+    this.sunset,
+  });
+
+  String? message;
+  String? oldBase;
+  String? newBase;
+  String? sunset;
 
   Migration.fromJson(dynamic json) {
     message = json['message'];
@@ -86,10 +94,6 @@ class Migration {
     newBase = json['new_base'];
     sunset = json['sunset'];
   }
-  String? message;
-  String? oldBase;
-  String? newBase;
-  String? sunset;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -99,21 +103,20 @@ class Migration {
     map['sunset'] = sunset;
     return map;
   }
-
 }
 
 class Data {
-  int? movieCount;
-  int? limit;
-  int? pageNumber;
-  List<Movies>? movies;
-
   Data({
     this.movieCount,
     this.limit,
     this.pageNumber,
-    this.movies, // تأكد أن هذا المتغير موجود هنا
+    this.movies,
   });
+
+  int? movieCount;
+  int? limit;
+  int? pageNumber;
+  List<Movies>? movies;
 
   Data.fromJson(dynamic json) {
     movieCount = json['movie_count'];
@@ -138,7 +141,7 @@ class Data {
     return map;
   }
 
-  // *** أضف هذه الدالة copyWith هنا ***
+  // *** تصحيح copyWith هنا ***
   Data copyWith({
     int? movieCount,
     int? limit,
@@ -149,56 +152,68 @@ class Data {
       movieCount: movieCount ?? this.movieCount,
       limit: limit ?? this.limit,
       pageNumber: pageNumber ?? this.pageNumber,
-      movies: movies ?? this.movies, // الآن سيعمل هذا السطر بشكل صحيح
+      movies: movies ?? this.movies,
     );
   }
 }
 
-int? movieCount;
-int? limit;
-int? pageNumber;
-List<Movies>? movies;
-  Map<String, dynamic> toJson() {
-    final map = <String, dynamic>{};
-    map['movie_count'] = movieCount;
-    map['limit'] = limit;
-    map['page_number'] = pageNumber;
-    if (movies != null) {
-      map['movies'] = movies?.map((v) => v.toJson()).toList();
-    }
-    return map;
-  }
-
-
 
 class Movies {
   Movies({
-      this.id,
-      this.url,
-      this.imdbCode,
-      this.title,
-      this.titleEnglish,
-      this.titleLong,
-      this.slug,
-      this.year,
-      this.rating,
-      this.runtime,
-      this.genres,
-      this.summary,
-      this.descriptionFull,
-      this.synopsis,
-      this.ytTrailerCode,
-      this.language,
-      this.mpaRating,
-      this.backgroundImage,
-      this.backgroundImageOriginal,
-      this.smallCoverImage,
-      this.mediumCoverImage,
-      this.largeCoverImage,
-      this.state,
-      this.torrents,
-      this.dateUploaded,
-      this.dateUploadedUnix,});
+    this.id,
+    this.url,
+    this.imdbCode,
+    this.title,
+    this.titleEnglish,
+    this.titleLong,
+    this.slug,
+    this.year,
+    this.rating,
+    this.runtime,
+    this.genres,
+    this.summary,
+    this.descriptionFull,
+    this.synopsis,
+    this.ytTrailerCode,
+    this.language,
+    this.mpaRating,
+    this.backgroundImage,
+    this.backgroundImageOriginal,
+    this.smallCoverImage,
+    this.mediumCoverImage,
+    this.largeCoverImage,
+    this.state,
+    this.torrents,
+    this.dateUploaded,
+    this.dateUploadedUnix,
+  });
+
+  int? id;
+  String? url;
+  String? imdbCode;
+  String? title;
+  String? titleEnglish;
+  String? titleLong;
+  String? slug;
+  int? year;
+  double? rating;
+  int? runtime;
+  List<String>? genres;
+  String? summary;
+  String? descriptionFull;
+  String? synopsis;
+  String? ytTrailerCode;
+  String? language;
+  String? mpaRating;
+  String? backgroundImage;
+  String? backgroundImageOriginal;
+  String? smallCoverImage;
+  String? mediumCoverImage;
+  String? largeCoverImage;
+  String? state;
+  List<Torrents>? torrents;
+  String? dateUploaded;
+  int? dateUploadedUnix;
 
   Movies.fromJson(dynamic json) {
     id = json['id'];
@@ -233,32 +248,6 @@ class Movies {
     dateUploaded = json['date_uploaded'];
     dateUploadedUnix = json['date_uploaded_unix'];
   }
-  int? id;
-  String? url;
-  String? imdbCode;
-  String? title;
-  String? titleEnglish;
-  String? titleLong;
-  String? slug;
-  int? year;
-  double? rating;
-  int? runtime;
-  List<String>? genres;
-  String? summary;
-  String? descriptionFull;
-  String? synopsis;
-  String? ytTrailerCode;
-  String? language;
-  String? mpaRating;
-  String? backgroundImage;
-  String? backgroundImageOriginal;
-  String? smallCoverImage;
-  String? mediumCoverImage;
-  String? largeCoverImage;
-  String? state;
-  List<Torrents>? torrents;
-  String? dateUploaded;
-  int? dateUploadedUnix;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -292,26 +281,40 @@ class Movies {
     map['date_uploaded_unix'] = dateUploadedUnix;
     return map;
   }
-
 }
-
 
 class Torrents {
   Torrents({
-      this.url,
-      this.hash,
-      this.quality,
-      this.type,
-      this.isRepack,
-      this.videoCodec,
-      this.bitDepth,
-      this.audioChannels,
-      this.seeds,
-      this.peers,
-      this.size,
-      this.sizeBytes,
-      this.dateUploaded,
-      this.dateUploadedUnix,});
+    this.url,
+    this.hash,
+    this.quality,
+    this.type,
+    this.isRepack,
+    this.videoCodec,
+    this.bitDepth,
+    this.audioChannels,
+    this.seeds,
+    this.peers,
+    this.size,
+    this.sizeBytes,
+    this.dateUploaded,
+    this.dateUploadedUnix,
+  });
+
+  String? url;
+  String? hash;
+  String? quality;
+  String? type;
+  String? isRepack;
+  String? videoCodec;
+  String? bitDepth;
+  String? audioChannels;
+  int? seeds;
+  int? peers;
+  String? size;
+  int? sizeBytes;
+  String? dateUploaded;
+  int? dateUploadedUnix;
 
   Torrents.fromJson(dynamic json) {
     url = json['url'];
@@ -329,20 +332,6 @@ class Torrents {
     dateUploaded = json['date_uploaded'];
     dateUploadedUnix = json['date_uploaded_unix'];
   }
-  String? url;
-  String? hash;
-  String? quality;
-  String? type;
-  String? isRepack;
-  String? videoCodec;
-  String? bitDepth;
-  String? audioChannels;
-  int? seeds;
-  int? peers;
-  String? size;
-  int? sizeBytes;
-  String? dateUploaded;
-  int? dateUploadedUnix;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -362,5 +351,4 @@ class Torrents {
     map['date_uploaded_unix'] = dateUploadedUnix;
     return map;
   }
-
 }

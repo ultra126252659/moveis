@@ -2,13 +2,16 @@ import 'package:bloc/bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:moves_final_project/features/home/data/model/MoviseResponse.dart';
 import 'package:moves_final_project/features/home/domain/usecase/movies_use_case.dart';
+import 'package:moves_final_project/features/home/domain/usecase/search_movies_use_case.dart';
 import 'package:moves_final_project/features/home/presentation/bloc/home_event.dart';
 import 'package:moves_final_project/features/home/presentation/bloc/home_state.dart';
+
 
 @injectable
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   MoviesUseCase moviesUseCase;
-  HomeBloc(this.moviesUseCase) : super(HomeState()) {
+  SearchMoviesUseCase searchMoviesUseCase;
+  HomeBloc(this.moviesUseCase, this.searchMoviesUseCase) : super(HomeState()) {
     on<ChangeSelectedBottomNavBar>((event, emit) {
       emit(HomeState(currentIndex: event.index));
     });
@@ -52,7 +55,26 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       }
     });
 
+    on<GetSearchMoviesEvent>((event, emit) async {
+      emit(state.copyWith(
+        getMoviesStatus: RequestStatus.loading,
+        searchQuery: event.query,
+      ));
 
+      try {
+        var response = await searchMoviesUseCase(event.query);
+        emit(state.copyWith(
+          getMoviesStatus: RequestStatus.success,
+          moviesResponse: response,
+          searchQuery: event.query,
+        ));
+      } catch (e) {
+        emit(state.copyWith(
+          getMoviesStatus: RequestStatus.error,
+          errorMassage: e.toString(),
+        ));
+      }
+    });
   }
 
- }
+}

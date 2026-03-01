@@ -14,12 +14,16 @@ class HomeState {
   int? currentIndex;
   String? currentBackground;
   String? selectedCategory;
+  bool? isSearching;
+  String? searchQuery;
   HomeState({
     this.getMoviesStatus = RequestStatus.init,
     this.selectedCategory,
     this.moviesResponse,
     this.errorMassage,
     this.currentBackground,
+    this.isSearching = false,
+    this.searchQuery = '',
     this.currentIndex = 0});
 
   HomeState copyWith({
@@ -27,6 +31,8 @@ class HomeState {
     MoviesResponse? moviesResponse,
     String? errorMassage,
     String? selectedCategory,
+    bool? isSearching,
+    String? searchQuery,
     String? currentBackground,}){
     return HomeState(
       getMoviesStatus: getMoviesStatus ?? this.getMoviesStatus,
@@ -34,6 +40,9 @@ class HomeState {
       errorMassage: errorMassage ?? this.errorMassage,
       selectedCategory: selectedCategory ?? this.selectedCategory,
       currentBackground: currentBackground ?? this.currentBackground,
+      isSearching: isSearching ?? this.isSearching,
+      searchQuery: searchQuery ?? this.searchQuery,
+
     );
   }
 }

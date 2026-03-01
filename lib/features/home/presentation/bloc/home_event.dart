@@ -12,7 +12,10 @@ class GetNewMovies extends HomeEvent{
 
   GetNewMovies();
 }
-
+class GetSearchMoviesEvent extends HomeEvent {
+  final String query;
+  GetSearchMoviesEvent(this.query);
+}
 class ChangeBackgroundEvent extends HomeEvent {
   final String imageUrl;
   ChangeBackgroundEvent(this.imageUrl);
