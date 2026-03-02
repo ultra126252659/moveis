@@ -8,7 +8,6 @@ import 'package:moves_final_project/features/auth/presentation/login_screen.dart
 
 
 
-
 class MoviesIntroScreen extends StatelessWidget {
   static const String routeName = "MoviesIntroScreen";
 
@@ -20,36 +19,36 @@ class MoviesIntroScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final listRawPages = [
       _buildRawPage(
-        imagePath: ImageApp.bgHome,
-        title: AppString.titleHome,
-        description: AppString.subTitleDetailsScreenShots,
+        imagePath: ImageApp.Onboarding1,
+        title: AppString.titleOnboarding1,
+        description: AppString.descriptionOnboarding1,
         primaryButtonText: "Explore Now",
         isFirstPage: true,
       ),
       _buildRawPage(
-        imagePath: ImageApp.bgHome,
-        title: AppString.titleHome,
-        description: AppString.subTitleDetailsScreenShots,
+        imagePath: ImageApp.Onboarding2,
+        title: AppString.titleOnboarding2,
+        description: AppString.descriptionOnboarding2,
       ),
       _buildRawPage(
-        imagePath: ImageApp.bgHome,
-        title: AppString.titleHome,
-        description: AppString.subTitleDetailsScreenShots,
+        imagePath: ImageApp.Onboarding3,
+        title: AppString.titleOnboarding3,
+        description: AppString.descriptionOnboarding3,
       ),
       _buildRawPage(
-        imagePath: ImageApp.bgHome,
-        title: AppString.titleHome,
-        description: AppString.subTitleDetailsScreenShots,
+        imagePath: ImageApp.Onboarding4,
+        title: AppString.titleOnboarding4,
+        description: AppString.descriptionOnboarding4,
       ),
       _buildRawPage(
-        imagePath: ImageApp.bgHome,
-        title: AppString.titleHome,
-        description: AppString.subTitleDetailsScreenShots,
+        imagePath: ImageApp.Onboarding5,
+        title: AppString.titleOnboarding5,
+        description: AppString.descriptionOnboarding5,
       ),
       _buildRawPage(
-        imagePath: ImageApp.bgHome,
-        title: AppString.titleHome,
-        description: AppString.subTitleDetailsScreenShots,
+        imagePath: ImageApp.Onboarding6,
+        title: AppString.titleOnboarding6,
+        description: AppString.descriptionOnboarding6,
         primaryButtonText: "Finish",
         isLastPage: true,
         context: context,

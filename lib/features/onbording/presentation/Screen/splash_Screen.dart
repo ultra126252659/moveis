@@ -10,6 +10,7 @@ import 'package:moves_final_project/features/onbording/presentation/Screen/Onboa
 
 
 
+
 class Splashscreen extends StatefulWidget {
   static const routeName="SplashScreen";
   const Splashscreen({super.key});
@@ -38,7 +39,7 @@ class _SplashscreenState extends State<Splashscreen> {
           const Spacer(),
           Center(
             child: Image.asset(
-              ImageApp.bgHome,
+              ImageApp.imagesplash,
               width: 200,
               fit: BoxFit.contain,
             ),
@@ -51,13 +52,13 @@ class _SplashscreenState extends State<Splashscreen> {
             padding: const EdgeInsets.only(bottom: 20.0),
             child: Column(
               children: [
-                Image.asset(ImageApp.bgHome,
+                Image.asset(ImageApp.imagebranding,
                   width: 100,
                   fit: BoxFit.cover,
                 ),
                 const SizedBox(height: 10),
                 const Text(
-                  AppString.filmName,
+                  AppString.textSplash,
                   style: TextStyle(
                     fontSize: 16,
                     color: Color(0xFFFFFFFF),
@@ -81,9 +82,9 @@ class _SplashscreenState extends State<Splashscreen> {
     Future.delayed(const Duration(seconds: 5), () {
       if (!mounted) return;
 
-     Navigator.pushReplacementNamed(
+      Navigator.pushReplacementNamed(
         context,
-       MoviesIntroScreen.routeName,
+        MoviesIntroScreen.routeName,
       );
     });
   }

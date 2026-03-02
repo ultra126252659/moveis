@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:moves_final_project/Widgets/AppDecorations.dart';
 import 'package:moves_final_project/core/resources/app_string.dart';
+import 'package:moves_final_project/core/resources/firebase_functions.dart';
 import 'package:moves_final_project/features/auth/providers/auth_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:moves_final_project/core/resources/firebase_functions.dart';
 import 'login_screen.dart';
 
 
@@ -66,17 +66,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     children: [
                       IconButton(
                         onPressed: ()
-                       {
-                         Navigator.pop(context);
-                       },
-                     icon: Icon(Icons.arrow_back, color: Color(0xFFF6BD00)),
+                        {
+                          Navigator.pop(context);
+                        },
+                        icon: Icon(Icons.arrow_back, color: Color(0xFFF6BD00)),
                         padding: EdgeInsets.zero,
                         alignment: Alignment.centerLeft,
                       ),
                       Expanded(
                         child: Center(
                           child: Text(
-                            AppString.titleHome,
+                            AppString.textRegister,
                             style: GoogleFonts.poppins(
                               fontSize: 20,
                               fontWeight: FontWeight.w600,
@@ -136,7 +136,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   const SizedBox(height: 12),
                   Center(
                     child: Text(
-                      AppString.titleHome,
+                      AppString.textAvatar,
                       style: GoogleFonts.poppins(
                         fontSize: 16,
                         color: Colors.white,

@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:moves_final_project/Widgets/AppDecorations.dart';
+
 import 'package:moves_final_project/core/resources/app_string.dart';
 import 'package:moves_final_project/core/resources/colors_app.dart';
 import 'package:moves_final_project/core/resources/firebase_functions.dart';
@@ -28,11 +29,11 @@ class ResetPasswordScreen extends StatelessWidget {
         iconTheme: const IconThemeData(color:ColorsApp.background),
         centerTitle: true,
         title: Text(
-          AppString.titleHome,
+          AppString.hintTextForgetPassword,
           style: GoogleFonts.poppins(
             fontSize: 20,
             fontWeight: FontWeight.w600,
-            color: ColorsApp.background,
+            color:ColorsApp.background,
           ),
         ),
       ),
@@ -46,7 +47,7 @@ class ResetPasswordScreen extends StatelessWidget {
               const SizedBox(height: 20),
 
               Image.asset(
-                ImageApp.byDetails,
+                ImageApp.imageForgotpassword,
                 height: 250,
                 fit: BoxFit.contain,
               ),
@@ -56,10 +57,10 @@ class ResetPasswordScreen extends StatelessWidget {
 
               TextFormField(
                 controller: emailController,
-                style: const TextStyle(color:ColorsApp.background),
+                style: const TextStyle(color: ColorsApp.background),
                 decoration: AppDecorations.customInputDecoration(
-                  hintText: AppString.titleHome,
-                  iconWidget: Image.asset(ImageApp.bgHome, width: 20, color: Colors.white54),
+                  hintText: AppString.hintTextEmail,
+                  iconWidget: Image.asset(ImageApp.imageEmail, width: 20, color: Colors.white54),
                 ),
               ),
 
@@ -79,16 +80,16 @@ class ResetPasswordScreen extends StatelessWidget {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: ColorsApp.background,
+                  backgroundColor:ColorsApp.background,
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),
                   ),
                 ),
                 child: Text(
-                  AppString.titleHome,
+                  AppString.textVerifyEmail,
                   style: GoogleFonts.poppins(
-                    color: ColorsApp.background,
+                    color:ColorsApp.background,
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
                   ),

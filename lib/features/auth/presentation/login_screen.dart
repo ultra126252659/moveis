@@ -8,7 +8,6 @@ import 'package:moves_final_project/core/resources/image&icon.dart';
 import 'package:moves_final_project/features/auth/presentation/register_screen.dart';
 import 'package:moves_final_project/features/auth/presentation/reset_password_screen.dart';
 import 'package:moves_final_project/features/auth/providers/auth_provider.dart';
-
 import 'package:provider/provider.dart';
 
 
@@ -51,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 children: [
                   const SizedBox(height: 40),
 
-                  Image.asset(ImageApp.bgHome, height: 120),
+                  Image.asset(ImageApp.imageLoginHome, height: 120),
                   const SizedBox(height: 50),
 
 
@@ -59,7 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     controller: emailController,
                     style: const TextStyle(color:ColorsApp.background),
                     decoration: InputDecoration(
-                      hintText: AppString.titleHome,
+                      hintText: AppString.hintTextEmail,
                       hintStyle: GoogleFonts.poppins(
                         fontSize: 14,
                         color: Colors.white54,
@@ -68,7 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       fillColor: const Color(0xFF282A28),
                       prefixIcon: Padding(
                         padding: const EdgeInsets.all(12.0),
-                        child: Image.asset(ImageApp.byDetails, width: 20, color: ColorsApp.background),
+                        child: Image.asset(ImageApp.imageEmail, width: 20, color:ColorsApp.background),
                       ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16),
@@ -84,7 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     obscureText: !isPasswordVisible,
                     style: const TextStyle(color: ColorsApp.background),
                     decoration: InputDecoration(
-                      hintText: AppString.subTitleDetailsScreenShots,
+                      hintText: AppString.hintTextPassword,
                       hintStyle: GoogleFonts.poppins(
                         fontSize: 14,
                         color: Colors.white54,
@@ -93,7 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       fillColor: const Color(0xFF282A28),
                       prefixIcon: Padding(
                         padding: const EdgeInsets.all(12.0),
-                        child: Image.asset(ImageApp.byDetails, width: 20, color: Colors.white),
+                        child: Image.asset(ImageApp.imagePassword, width: 20, color: Colors.white),
                       ),
                       suffixIcon: IconButton(
                         icon: Icon(
@@ -126,9 +125,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         );
                       },
                       child: Text(
-                       AppString.simialr,
+                        AppString.hintTextForgetPassword,
                         style: GoogleFonts.poppins(
-                          color: ColorsApp.background,
+                          color: ColorsApp.primaryGold,
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
                         ),
@@ -143,7 +142,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       FirebaseFunctions.login(
                         emailController.text,
                         passwordController.text,
-                           onSuccess: () {
+                        onSuccess: () {
                           authProvider.initUser();
                           /*Navigator.pushReplacementNamed(
                             context,
@@ -168,14 +167,14 @@ class _LoginScreenState extends State<LoginScreen> {
                       );
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor:ColorsApp.background,
+                      backgroundColor:ColorsApp.primaryGold,
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),
                       ),
                     ),
                     child: Text(
-                      AppString.titleHome,
+                      AppString.hintTextLogin,
                       style: GoogleFonts.poppins(
                         color: const Color(0xFF121212),
                         fontSize: 18,
@@ -189,25 +188,25 @@ class _LoginScreenState extends State<LoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        AppString.titleHome,
+                        AppString.textAccount,
                         style: GoogleFonts.poppins(
                           fontSize: 14,
                           color: Colors.white,
                         ),
                       ),
                       GestureDetector(
-                       onTap: () {
+                        onTap: () {
                           Navigator.pushNamed(
                             context,
                             RegisterScreen.routeName,
                           );
                         },
                         child: Text(
-                         AppString.titleHome,
+                          AppString.textCreateOne,
                           style: GoogleFonts.poppins(
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
-                            color: ColorsApp.background,
+                            color: ColorsApp.primaryGold,
                           ),
                         ),
                       ),
@@ -226,16 +225,16 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       Text(
-                        AppString.titleHome,
+                        AppString.textOR,
                         style: GoogleFonts.poppins(
-                          color:ColorsApp.background,
+                          color:ColorsApp.primaryGold,
                           fontSize: 16,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
                       Expanded(
                         child: Divider(
-                          color:ColorsApp.background,
+                          color:ColorsApp. primaryGold,
                           thickness: 1,
                           indent: 16,
                           endIndent: 32,
@@ -250,9 +249,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     onPressed: () {
                       // كود جوجل هنا
                     },
-                    icon: Image.asset(ImageApp.bgHome, height: 24),
+                    icon: Image.asset(ImageApp.imagegoogle, height: 24),
                     label: Text(
-                     AppString.titleHome,
+                      AppString. textLoginWithGoogle,
                       style: GoogleFonts.poppins(
                         color: const Color(0xFF121212),
                         fontSize: 16,
@@ -260,7 +259,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     style: ElevatedButton.styleFrom(
-                      backgroundColor:ColorsApp.background,
+                      backgroundColor:ColorsApp.primaryGold,
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),
