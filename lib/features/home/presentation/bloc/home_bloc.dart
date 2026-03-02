@@ -68,6 +68,16 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           moviesResponse: response,
           searchQuery: event.query,
         ));
+
+        if (event.query.isEmpty) {
+          emit(state.copyWith(
+            moviesResponse: null,
+            isSearching: false,
+            searchQuery: "",
+          ));
+          return;
+        }
+
       } catch (e) {
         emit(state.copyWith(
           getMoviesStatus: RequestStatus.error,

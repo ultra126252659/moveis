@@ -13,7 +13,7 @@ class SearchMoviesRemoteDsImpl implements SearchMoviesRemoteDs{
   Future<MoviesResponse> getSearchMovies(String query) async{
     try{
       var response = await apiManager.get(EndPoint.moviesList,
-      queryParameters: {"query":query,"limit":20}
+      queryParameters: {"query_term":query,}
       );
       MoviesResponse moviesResponse = MoviesResponse.fromJson(response.data);
       return moviesResponse;
