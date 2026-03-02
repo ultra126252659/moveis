@@ -19,9 +19,27 @@ class ExploreTab extends StatelessWidget {
       create: (context) => getIt<HomeBloc>(),
       child: BlocConsumer<HomeBloc, HomeState>(
         builder: (context, state) {
-          return Container(
+          final popularMovies = state.moviesResponse?.data?.movies ?? [];
+          final allGenres = popularMovies
+              .expand((m) => m.genres ?? <String>[])
+              .toSet().toList()..sort();
+         return Column(
+           children: [
+             Row(
+               children: allGenres.map((genre) {
+                 // حساب عدد الأفلام لكل نوع (Genre)
+                 final count = popularMovies
+                     .where((m) => m.genres?.contains(genre) ?? false)
+                     .length;
 
-          );
+                 return TabBarItem(
+                   label: [genre],
+                   count: count,
+                 );
+               }).toList(),
+             ),
+           ]
+         );
         },
         listener: (context, state) {
           if (state.getMoviesStatus == RequestStatus.loading) {
