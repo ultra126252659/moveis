@@ -7,7 +7,7 @@ class StyleApp {
   static TextStyle smText = GoogleFonts.poppins(
     fontSize: 16.sp,
     fontWeight: FontWeight.w400,
-    color: ColorsApp.textPrimary
+    color: ColorsApp.textPrimary,
   );
   static TextStyle mdText = GoogleFonts.poppins(
       fontSize: 20.sp,

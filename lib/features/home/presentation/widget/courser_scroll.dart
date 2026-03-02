@@ -1,3 +1,4 @@
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,6 +7,8 @@ import 'package:moves_final_project/core/resources/image&icon.dart';
 import 'package:moves_final_project/core/resources/style_app.dart';
 import 'package:moves_final_project/features/home/presentation/bloc/home_bloc.dart';
 import 'package:moves_final_project/features/home/presentation/bloc/home_event.dart';
+
+import '../../../../core/resources/auto_route.dart';
 class CourserScroll extends StatelessWidget {
 
   final List<dynamic> movies;
@@ -39,15 +42,20 @@ class CourserScroll extends StatelessWidget {
       items: movies.map((movie) {
         return Builder(
           builder: (BuildContext context) {
-            return Container(
-                width: MediaQuery.of(context).size.width * 0.6,
-                margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20.0),
-                ),
-                child: Stack(
-                  children: [
+            return GestureDetector(
+              onTap: (){
 
+<<<<<<< HEAD
+              },
+              child: Container(
+                  width: MediaQuery.of(context).size.width * 0.6,
+                  margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20.0),
+                  ),
+                  child: Stack(
+                    children: [
+=======
                     ClipRRect(
                       borderRadius: BorderRadius.circular(20.0),
                       child: Image.network(
@@ -59,16 +67,46 @@ class CourserScroll extends StatelessWidget {
                             Image.asset(ImageApp.bgHome, fit: BoxFit.cover),
                       ),
                     ),
+>>>>>>> devAlaa
 
-
-                    Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                        height: 30,
-                        width: 65,
-                        decoration: BoxDecoration(
-                          color: ColorsApp.shadow.withOpacity(0.5),
-                          borderRadius: BorderRadius.circular(10.0),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(20.0),
+                        child: Image.network(
+                          movie.mediumCoverImage ?? "", // رابط الصورة من الـ API
+                          fit: BoxFit.cover,
+                          height: double.infinity,
+                          width: double.infinity,
+                          errorBuilder: (context, error, stackTrace) =>
+                              Image.asset(ImageApp.bgHome, fit: BoxFit.cover), // صورة احتياطية
                         ),
+<<<<<<< HEAD
+                      ),
+
+
+                      Container(
+                          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                          height: 30,
+                          width: 65,
+                          decoration: BoxDecoration(
+                            color: ColorsApp.shadow.withOpacity(0.5),
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "${movie.rating ?? 0.0}", // التقييم الحقيقي
+                                style: StyleApp.smText,
+                              ),
+                              const SizedBox(width: 4),
+                              const Icon(Icons.star, color: ColorsApp.primaryGold, size: 16),
+                            ],
+                          )
+                      )
+                    ],
+                  )
+              ),
+=======
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -83,6 +121,7 @@ class CourserScroll extends StatelessWidget {
                     )
                   ],
                 )
+>>>>>>> devAlaa
             );
           },
         );
