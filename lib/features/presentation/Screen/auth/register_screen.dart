@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:moves_final_project/Widgets/AppDecorations.dart';
-import 'package:moves_final_project/core/AppString.dart';
+import 'package:moves_final_project/core/resources/app_string.dart';
+
 import 'package:provider/provider.dart';
 
-import 'package:moves_final_project/core/firebase_functions.dart';
+import 'package:moves_final_project/core/resources/firebase_functions.dart';
 import 'package:moves_final_project/features/presentation/providers/auth_provider.dart';
 import 'login_screen.dart';
 
@@ -77,7 +78,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       Expanded(
                         child: Center(
                           child: Text(
-                            AppString.TextRegister,
+                            AppString.titleHome,
                             style: GoogleFonts.poppins(
                               fontSize: 20,
                               fontWeight: FontWeight.w600,
@@ -137,7 +138,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   const SizedBox(height: 12),
                   Center(
                     child: Text(
-                      AppString.TextAvatar,
+                      AppString.titleHome,
                       style: GoogleFonts.poppins(
                         fontSize: 16,
                         color: Colors.white,

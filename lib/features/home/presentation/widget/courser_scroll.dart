@@ -1,4 +1,4 @@
-import 'package:auto_route/auto_route.dart';
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -44,7 +44,7 @@ class CourserScroll extends StatelessWidget {
           builder: (BuildContext context) {
             return GestureDetector(
               onTap: (){
-                context.pushRoute(const MovieDetailsRoute());
+
               },
               child: Container(
                   width: MediaQuery.of(context).size.width * 0.6,

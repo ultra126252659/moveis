@@ -1,7 +1,8 @@
 
 import 'package:flutter/material.dart';
-import 'package:moves_final_project/core/AppString.dart';
-import 'package:moves_final_project/core/ImageApp.dart';
+import 'package:moves_final_project/core/resources/app_string.dart';
+import 'package:moves_final_project/core/resources/image&icon.dart';
+
 import 'package:moves_final_project/features/presentation/Screen/Onboarding.dart';
 
 
@@ -38,7 +39,7 @@ class _SplashscreenState extends State<Splashscreen> {
           const Spacer(),
           Center(
             child: Image.asset(
-              ImageApp.imagesplash,
+              ImageApp.bgHome,
               width: 200,
               fit: BoxFit.contain,
             ),
@@ -51,13 +52,13 @@ class _SplashscreenState extends State<Splashscreen> {
             padding: const EdgeInsets.only(bottom: 20.0),
             child: Column(
               children: [
-                Image.asset(ImageApp.imagebranding,
+                Image.asset(ImageApp.bgHome,
                   width: 100,
                   fit: BoxFit.cover,
                 ),
                 const SizedBox(height: 10),
                 const Text(
-                  AppString.TextSplash,
+                  AppString.filmName,
                   style: TextStyle(
                     fontSize: 16,
                     color: Color(0xFFFFFFFF),

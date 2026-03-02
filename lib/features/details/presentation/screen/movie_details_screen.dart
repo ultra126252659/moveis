@@ -1,17 +1,15 @@
-import 'package:auto_route/auto_route.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moves_final_project/core/resources/app_string.dart';
 import 'package:moves_final_project/core/resources/colors_app.dart';
-
 import '../../../../core/resources/image&icon.dart';
 import '../../../../core/resources/style_app.dart';
 import '../widgets/cusotm_btn.dart';
 import '../widgets/custom_list_of_chips.dart';
 import '../widgets/screen_shot_list.dart';
 import '../widgets/similar_gridView.dart';
-@RoutePage()
+
 class MovieDetailsScreen extends StatelessWidget {
   const  MovieDetailsScreen({super.key});
 
@@ -26,7 +24,7 @@ class MovieDetailsScreen extends StatelessWidget {
           automaticallyImplyActions: false,
           leadingWidth: 50,
 automaticallyImplyLeading: false,
-          title: GestureDetector(onTap: (){context.pop();},
+          title: GestureDetector(onTap: (){},
               child: ImageIcon(AssetImage(IconApp.arrowBack),color: Colors.white,size: 24,)),
           actions: [ImageIcon(AssetImage(IconApp.saveIc),color: Colors.white,),SizedBox(width: 15,)],),
         body: SingleChildScrollView(child: Column(

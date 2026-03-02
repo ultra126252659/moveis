@@ -1,9 +1,8 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
-import 'package:moves_final_project/core/AppString.dart';
-import 'package:moves_final_project/core/ImageApp.dart';
-import 'package:moves_final_project/core/cache_helper.dart';
+import 'package:moves_final_project/core/resources/app_string.dart';
+import 'package:moves_final_project/core/resources/image&icon.dart';
 import 'package:moves_final_project/features/presentation/Screen/auth/login_screen.dart';
 
 
@@ -20,36 +19,36 @@ class MoviesIntroScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final listRawPages = [
       _buildRawPage(
-        imagePath: ImageApp.Onboarding1,
-        title: AppString.titleOnboarding1,
-        description: AppString.descriptionOnboarding1,
+        imagePath: ImageApp.bgHome,
+        title: AppString.titleHome,
+        description: AppString.subTitleDetailsScreenShots,
         primaryButtonText: "Explore Now",
         isFirstPage: true,
       ),
       _buildRawPage(
-        imagePath: ImageApp.Onboarding2,
-        title: AppString.titleOnboarding2,
-        description: AppString.descriptionOnboarding2,
+        imagePath: ImageApp.bgHome,
+        title: AppString.titleHome,
+        description: AppString.subTitleDetailsScreenShots,
       ),
       _buildRawPage(
-        imagePath: ImageApp.Onboarding3,
-        title: AppString.titleOnboarding3,
-        description: AppString.descriptionOnboarding3,
+        imagePath: ImageApp.bgHome,
+        title: AppString.titleHome,
+        description: AppString.subTitleDetailsScreenShots,
       ),
       _buildRawPage(
-        imagePath: ImageApp.Onboarding4,
-        title: AppString.titleOnboarding4,
-        description: AppString.descriptionOnboarding4,
+        imagePath: ImageApp.bgHome,
+        title: AppString.titleHome,
+        description: AppString.subTitleDetailsScreenShots,
       ),
       _buildRawPage(
-        imagePath: ImageApp.Onboarding5,
-        title: AppString.titleOnboarding5,
-        description: AppString.descriptionOnboarding5,
+        imagePath: ImageApp.bgHome,
+        title: AppString.titleHome,
+        description: AppString.subTitleDetailsScreenShots,
       ),
       _buildRawPage(
-        imagePath: ImageApp.Onboarding6,
-        title: AppString.titleOnboarding6,
-        description: AppString.descriptionOnboarding6,
+        imagePath: ImageApp.bgHome,
+        title: AppString.titleHome,
+        description: AppString.subTitleDetailsScreenShots,
         primaryButtonText: "Finish",
         isLastPage: true,
         context: context,

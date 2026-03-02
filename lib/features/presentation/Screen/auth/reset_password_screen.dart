@@ -2,10 +2,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:moves_final_project/Widgets/AppDecorations.dart';
-import 'package:moves_final_project/core/App%20Colors.dart';
-import 'package:moves_final_project/core/AppString.dart';
-import 'package:moves_final_project/core/ImageApp.dart';
-import 'package:moves_final_project/core/firebase_functions.dart';
+import 'package:moves_final_project/core/resources/app_string.dart';
+import 'package:moves_final_project/core/resources/colors_app.dart';
+import 'package:moves_final_project/core/resources/firebase_functions.dart';
+import 'package:moves_final_project/core/resources/image&icon.dart';
 
 
 
@@ -19,20 +19,20 @@ class ResetPasswordScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Appcolors.BackgroundDark,
+      backgroundColor: ColorsApp.background,
 
 
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        iconTheme: const IconThemeData(color: Appcolors.primary),
+        iconTheme: const IconThemeData(color:ColorsApp.background),
         centerTitle: true,
         title: Text(
-          AppString.hintTextForgetPassword,
+          AppString.titleHome,
           style: GoogleFonts.poppins(
             fontSize: 20,
             fontWeight: FontWeight.w600,
-            color: Appcolors.primary,
+            color: ColorsApp.background,
           ),
         ),
       ),
@@ -46,7 +46,7 @@ class ResetPasswordScreen extends StatelessWidget {
               const SizedBox(height: 20),
 
               Image.asset(
-                ImageApp.imageForgotpassword,
+                ImageApp.byDetails,
                 height: 250,
                 fit: BoxFit.contain,
               ),
@@ -56,10 +56,10 @@ class ResetPasswordScreen extends StatelessWidget {
 
               TextFormField(
                 controller: emailController,
-                style: const TextStyle(color: Appcolors.white),
+                style: const TextStyle(color:ColorsApp.background),
                 decoration: AppDecorations.customInputDecoration(
-                  hintText: AppString.hintTextEmail,
-                  iconWidget: Image.asset(ImageApp.imageEmail, width: 20, color: Colors.white54),
+                  hintText: AppString.titleHome,
+                  iconWidget: Image.asset(ImageApp.bgHome, width: 20, color: Colors.white54),
                 ),
               ),
 
@@ -74,21 +74,21 @@ class ResetPasswordScreen extends StatelessWidget {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
                       content: Text("Password reset email sent. Please check your inbox."),
-                      backgroundColor: Appcolors.success,
+                      backgroundColor:ColorsApp.background,
                     ),
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Appcolors.primary,
+                  backgroundColor: ColorsApp.background,
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),
                   ),
                 ),
                 child: Text(
-                  AppString.TextVerifyEmail,
+                  AppString.titleHome,
                   style: GoogleFonts.poppins(
-                    color: Appcolors.BackgroundDark,
+                    color: ColorsApp.background,
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
                   ),

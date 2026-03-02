@@ -1,5 +1,4 @@
 
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moves_final_project/core/resources/app_string.dart';
@@ -52,7 +51,7 @@ class ActionItem extends StatelessWidget {
               final movie = movies[index];
               return GestureDetector(
                 onTap: (){
-                  context.pushRoute(const MovieDetailsRoute());
+
                 },
                 child: Container(
                   width: MediaQuery.of(context).size.width * 0.37,
