@@ -1,7 +1,8 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:moves_final_project/features/data/model/user_model.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:moves_final_project/features/auth/data/model/user_model.dart';
 
 class FirebaseFunctions {
   static CollectionReference<UserModel> getUsersCollection() {

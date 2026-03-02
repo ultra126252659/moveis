@@ -5,9 +5,10 @@ import 'package:moves_final_project/core/resources/app_string.dart';
 import 'package:moves_final_project/core/resources/colors_app.dart';
 import 'package:moves_final_project/core/resources/firebase_functions.dart';
 import 'package:moves_final_project/core/resources/image&icon.dart';
-import 'package:moves_final_project/features/presentation/Screen/auth/register_screen.dart';
-import 'package:moves_final_project/features/presentation/Screen/auth/reset_password_screen.dart';
-import 'package:moves_final_project/features/presentation/providers/auth_provider.dart';
+import 'package:moves_final_project/features/auth/presentation/register_screen.dart';
+import 'package:moves_final_project/features/auth/presentation/reset_password_screen.dart';
+import 'package:moves_final_project/features/auth/providers/auth_provider.dart';
+
 import 'package:provider/provider.dart';
 
 

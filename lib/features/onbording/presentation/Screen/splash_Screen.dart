@@ -2,8 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:moves_final_project/core/resources/app_string.dart';
 import 'package:moves_final_project/core/resources/image&icon.dart';
-
-import 'package:moves_final_project/features/presentation/Screen/Onboarding.dart';
+import 'package:moves_final_project/features/onbording/presentation/Screen/Onboarding.dart';
 
 
 

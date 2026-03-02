@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:moves_final_project/core/resources/app_string.dart';
 import 'package:moves_final_project/core/resources/image&icon.dart';
-import 'package:moves_final_project/features/presentation/Screen/auth/login_screen.dart';
+import 'package:moves_final_project/features/auth/presentation/login_screen.dart';
+
 
 
 

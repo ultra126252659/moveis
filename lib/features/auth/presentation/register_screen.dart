@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:moves_final_project/Widgets/AppDecorations.dart';
 import 'package:moves_final_project/core/resources/app_string.dart';
-
+import 'package:moves_final_project/features/auth/providers/auth_provider.dart';
 import 'package:provider/provider.dart';
-
 import 'package:moves_final_project/core/resources/firebase_functions.dart';
-import 'package:moves_final_project/features/presentation/providers/auth_provider.dart';
 import 'login_screen.dart';
 
 
