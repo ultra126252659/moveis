@@ -11,31 +11,38 @@ class HomeState {
   RequestStatus? getMoviesStatus;
   MoviesResponse? moviesResponse;
   String? errorMassage;
-  MoviesResponse? latestMoviesResponse;
-  MoviesResponse? popularMoviesResponse;
   int? currentIndex;
   String? currentBackground;
+  String? selectedCategory;
+  bool? isSearching;
+  String? searchQuery;
   HomeState({
     this.getMoviesStatus = RequestStatus.init,
-    this.latestMoviesResponse,
-    this.popularMoviesResponse,
+    this.selectedCategory,
     this.moviesResponse,
     this.errorMassage,
     this.currentBackground,
+    this.isSearching = false,
+    this.searchQuery = '',
     this.currentIndex = 0});
 
   HomeState copyWith({
     RequestStatus? getMoviesStatus,
     MoviesResponse? moviesResponse,
     String? errorMassage,
+    String? selectedCategory,
+    bool? isSearching,
+    String? searchQuery,
     String? currentBackground,}){
     return HomeState(
       getMoviesStatus: getMoviesStatus ?? this.getMoviesStatus,
       moviesResponse: moviesResponse ?? this.moviesResponse,
       errorMassage: errorMassage ?? this.errorMassage,
-      latestMoviesResponse: latestMoviesResponse ?? latestMoviesResponse,
-      popularMoviesResponse: popularMoviesResponse ?? popularMoviesResponse,
+      selectedCategory: selectedCategory ?? this.selectedCategory,
       currentBackground: currentBackground ?? this.currentBackground,
+      isSearching: isSearching ?? this.isSearching,
+      searchQuery: searchQuery ?? this.searchQuery,
+
     );
   }
 }

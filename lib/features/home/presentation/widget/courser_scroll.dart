@@ -27,7 +27,7 @@ class CourserScroll extends StatelessWidget {
 
     return CarouselSlider(
       options: CarouselOptions(
-        autoPlay: false,
+        autoPlay: true,
         enlargeCenterPage: true,
 
         height: 350.0,
@@ -45,6 +45,7 @@ class CourserScroll extends StatelessWidget {
             return GestureDetector(
               onTap: (){
 
+<<<<<<< HEAD
               },
               child: Container(
                   width: MediaQuery.of(context).size.width * 0.6,
@@ -54,6 +55,19 @@ class CourserScroll extends StatelessWidget {
                   ),
                   child: Stack(
                     children: [
+=======
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(20.0),
+                      child: Image.network(
+                        movie.mediumCoverImage ?? "",
+                        fit: BoxFit.cover,
+                        height: double.infinity,
+                        width: double.infinity,
+                        errorBuilder: (context, error, stackTrace) =>
+                            Image.asset(ImageApp.bgHome, fit: BoxFit.cover),
+                      ),
+                    ),
+>>>>>>> devAlaa
 
                       ClipRRect(
                         borderRadius: BorderRadius.circular(20.0),
@@ -65,6 +79,7 @@ class CourserScroll extends StatelessWidget {
                           errorBuilder: (context, error, stackTrace) =>
                               Image.asset(ImageApp.bgHome, fit: BoxFit.cover), // صورة احتياطية
                         ),
+<<<<<<< HEAD
                       ),
 
 
@@ -91,6 +106,22 @@ class CourserScroll extends StatelessWidget {
                     ],
                   )
               ),
+=======
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "${movie.rating ?? 0.0}",
+                              style: StyleApp.smText,
+                            ),
+                            const SizedBox(width: 4),
+                            const Icon(Icons.star, color: ColorsApp.primaryGold, size: 16),
+                          ],
+                        )
+                    )
+                  ],
+                )
+>>>>>>> devAlaa
             );
           },
         );

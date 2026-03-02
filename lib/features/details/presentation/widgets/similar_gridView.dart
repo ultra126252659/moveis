@@ -1,9 +1,16 @@
 
+<<<<<<< HEAD
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../core/resources/colors_app.dart';
 import '../../../../core/resources/image&icon.dart';
+=======
+
+import 'package:flutter/material.dart';
+import 'package:moves_final_project/core/resources/colors_app.dart';
+import 'package:moves_final_project/core/resources/image&icon.dart';
+>>>>>>> devAlaa
 
 class CusctomGridView extends StatelessWidget {
   const CusctomGridView({super.key});
