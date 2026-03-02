@@ -72,7 +72,7 @@ class SearchTab extends StatelessWidget {
                         child:(state.searchQuery == null || state.searchQuery!.isEmpty)
                             ? Center(child: Image.asset(ImageApp.empty))
                             : GridView.builder(
-                          key: ValueKey(state.searchQuery),
+                          key: ValueKey(state.moviesResponse?.data?.movies?.hashCode),
                           itemCount: state.moviesResponse?.data?.movies?.length ?? 0,
                           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 3,
