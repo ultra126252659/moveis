@@ -3,6 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moves_final_project/core/resources/app_string.dart';
 import 'package:moves_final_project/core/resources/colors_app.dart';
+<<<<<<< HEAD
+import '../../../../core/resources/image&icon.dart';
+import '../../../../core/resources/style_app.dart';
+import '../widgets/cusotm_btn.dart';
+import '../widgets/custom_list_of_chips.dart';
+import '../widgets/screen_shot_list.dart';
+import '../widgets/similar_gridView.dart';
+=======
 import 'package:moves_final_project/core/resources/image&icon.dart';
 import 'package:moves_final_project/core/resources/style_app.dart';
 import 'package:moves_final_project/features/details/presentation/widgets/cusotm_btn.dart';
@@ -10,6 +18,7 @@ import 'package:moves_final_project/features/details/presentation/widgets/custom
 import 'package:moves_final_project/features/details/presentation/widgets/screen_shot_list.dart';
 import 'package:moves_final_project/features/details/presentation/widgets/similar_gridView.dart';
 
+>>>>>>> devAlaa
 
 class MovieDetailsScreen extends StatelessWidget {
   const  MovieDetailsScreen({super.key});
@@ -47,7 +56,11 @@ automaticallyImplyLeading: false,
                   right: 16,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
+<<<<<<< HEAD
+                    child: Text(textAlign: TextAlign.center,AppString.filmName,style: StyleApp.lgText,),
+=======
                     child: Text(textAlign: TextAlign.center,AppString.supTitleHome,style: StyleApp.lgText,),
+>>>>>>> devAlaa
                   )),
               Positioned(
                   bottom: 60.sp,
@@ -65,19 +78,31 @@ automaticallyImplyLeading: false,
 
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
+<<<<<<< HEAD
+              child: Text(AppString.subTitleDetailsScreenShots,style: StyleApp.lgText,),
+=======
               child: Text(AppString.supTitleHome,style: StyleApp.lgText,),
+>>>>>>> devAlaa
             ),SizedBox(height: 1.h,),
             ScreenShotList(),
             SizedBox(height: 9.h,),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
+<<<<<<< HEAD
+              child: Text(AppString.simialr,style: StyleApp.lgText,),
+=======
               child: Text(AppString.supTitleHome,style: StyleApp.lgText,),
+>>>>>>> devAlaa
             ),SizedBox(height: 1.h,),
             CusctomGridView(),
             SizedBox(height: 9.h,),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
+<<<<<<< HEAD
+              child: Text(AppString.summary,style: StyleApp.lgText,),
+=======
               child: Text(AppString.supTitleHome,style: StyleApp.lgText,),
+>>>>>>> devAlaa
             ),SizedBox(height: 1.h,),
             Text(
 

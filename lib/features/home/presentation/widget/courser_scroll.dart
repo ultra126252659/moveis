@@ -1,3 +1,4 @@
+
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -40,11 +41,51 @@ class CourserScroll extends StatelessWidget {
       items: movies.map((movie) {
         return Builder(
           builder: (BuildContext context) {
-            return  CardItem(
-              width: MediaQuery.of(context).size.width * 0.59,
-              rating:  movie.rating ?? 0.0,
-              imageUrl:  movie.mediumCoverImage ?? "",);
+            return Container(
+                width: MediaQuery.of(context).size.width * 0.6,
+                margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                child: Stack(
+                  children: [
 
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(20.0),
+                      child: Image.network(
+                        movie.mediumCoverImage ?? "",
+                        fit: BoxFit.cover,
+                        height: double.infinity,
+                        width: double.infinity,
+                        errorBuilder: (context, error, stackTrace) =>
+                            Image.asset(ImageApp.bgHome, fit: BoxFit.cover),
+                      ),
+                    ),
+
+
+                    Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                        height: 30,
+                        width: 65,
+                        decoration: BoxDecoration(
+                          color: ColorsApp.shadow.withOpacity(0.5),
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              "${movie.rating ?? 0.0}",
+                              style: StyleApp.smText,
+                            ),
+                            const SizedBox(width: 4),
+                            const Icon(Icons.star, color: ColorsApp.primaryGold, size: 16),
+                          ],
+                        )
+                    )
+                  ],
+                )
+            );
           },
         );
       }).toList(),

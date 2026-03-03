@@ -2,7 +2,11 @@
 // import 'package:flutter/cupertino.dart';
 // import 'package:moves_final_project/features/details/presentation/screen/movie_details_screen.dart';
 // import '../../features/home/presentation/screen/home_screen.dart';
+<<<<<<< HEAD
+// part 'auto_route.gr.dart';
+=======
 //
+>>>>>>> devAlaa
 // @AutoRouterConfig(replaceInRouteName: 'Screen|Page,Route')
 // class AppRouter extends RootStackRouter {
 //
