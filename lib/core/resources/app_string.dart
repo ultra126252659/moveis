@@ -2,7 +2,7 @@ class AppString {
   static const String titleHome ="Action";
   static const String subTitleDetailsScreenShots ="Screen Shots";
   static const String supTitleHome ="See More";
-  static const String  search="Search for your favorite movies  ";
+  static const String  search="Search for your movies  ";
 
   static const String filmName = 'Doctor Strange in the Multiverse of Madness';
   static const String simialr = 'Similar ';

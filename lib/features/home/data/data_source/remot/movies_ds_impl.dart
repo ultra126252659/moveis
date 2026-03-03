@@ -10,12 +10,12 @@ class MoviesRemoteDsImpl implements MoviesRemoteDs{
   ApiManager apiManager;
   MoviesRemoteDsImpl(this.apiManager);
   @override
-  Future<MoviesResponse> getMovies(String sortBy) async {
+  Future<MoviesResponse> getMovies(String sortBy, ) async {
     try {
       var response = await apiManager.get(EndPoint.moviesList,
         queryParameters: {
           'sort_by': sortBy,
-          'limit': 20,
+
         },
       );
       MoviesResponse moviesResponse = MoviesResponse.fromJson(response.data);
@@ -24,6 +24,24 @@ class MoviesRemoteDsImpl implements MoviesRemoteDs{
       rethrow;
     }
   }
+
+  @override
+  Future<MoviesResponse> getExploreMovies(String genre) async{
+    try {
+      var response = await apiManager.get(EndPoint.moviesList,
+        queryParameters: {
+          'genre': genre,
+        },
+      );
+      print("Raw API Response: ${response.data}");
+      MoviesResponse moviesResponse = MoviesResponse.fromJson(response.data);
+      return moviesResponse;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+
 
 
 }

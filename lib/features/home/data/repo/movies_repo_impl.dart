@@ -18,6 +18,17 @@ class MoviesRepoImpl implements MoviesRepo{
     }
   }
 
+  @override
+  Future<MoviesResponse> getExploreMovies(String genre) async{
+    try{
+      MoviesResponse response =await moviesRemoteDs.getMovies(genre);
+
+      return response;
+    }catch(e){
+      rethrow;
+    }
+  }
+
 
 
 }
