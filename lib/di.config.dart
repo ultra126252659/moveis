@@ -23,6 +23,7 @@ import 'features/home/data/repo/movies_repo_impl.dart' as _i558;
 import 'features/home/data/repo/search_movies_repo_impl.dart' as _i24;
 import 'features/home/domain/repo/move_repo.dart' as _i1064;
 import 'features/home/domain/repo/search_movies_repo.dart' as _i1069;
+import 'features/home/domain/usecase/movies_explor_use_case.dart' as _i491;
 import 'features/home/domain/usecase/movies_use_case.dart' as _i1064;
 import 'features/home/domain/usecase/search_movies_use_case.dart' as _i532;
 import 'features/home/presentation/bloc/home_bloc.dart' as _i123;
@@ -44,6 +45,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i1064.MoviesRepo>(
       () => _i558.MoviesRepoImpl(gh<_i950.MoviesRemoteDs>()),
     );
+    gh.factory<_i491.ExploreMoviesUseCase>(
+      () => _i491.ExploreMoviesUseCase(gh<_i1064.MoviesRepo>()),
+    );
     gh.factory<_i1064.MoviesUseCase>(
       () => _i1064.MoviesUseCase(gh<_i1064.MoviesRepo>()),
     );
@@ -57,6 +61,7 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i123.HomeBloc(
         gh<_i1064.MoviesUseCase>(),
         gh<_i532.SearchMoviesUseCase>(),
+        gh<_i491.ExploreMoviesUseCase>(),
       ),
     );
     return this;

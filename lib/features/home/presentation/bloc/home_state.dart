@@ -4,7 +4,7 @@ enum RequestStatus{
   init,
   loading,
   success,
-  error,
+  error, idle,
 }
 
 class HomeState {
@@ -16,14 +16,20 @@ class HomeState {
   String? selectedCategory;
   bool? isSearching;
   String? searchQuery;
+  List<String> genres;
+  List<Movies> allMovies;
+  List<Movies> filteredMovies;
   HomeState({
     this.getMoviesStatus = RequestStatus.init,
-    this.selectedCategory,
+    this.selectedCategory = 'All',
     this.moviesResponse,
     this.errorMassage,
     this.currentBackground,
     this.isSearching = false,
     this.searchQuery = '',
+    this.genres = const [],
+    this.allMovies = const [],
+    this.filteredMovies = const [],
     this.currentIndex = 0});
 
   HomeState copyWith({
@@ -33,6 +39,9 @@ class HomeState {
     String? selectedCategory,
     bool? isSearching,
     String? searchQuery,
+    List<String>? genres,
+    List<Movies>? allMovies,
+    List<Movies>? filteredMovies,
     String? currentBackground,}){
     return HomeState(
       getMoviesStatus: getMoviesStatus ?? this.getMoviesStatus,
@@ -42,6 +51,10 @@ class HomeState {
       currentBackground: currentBackground ?? this.currentBackground,
       isSearching: isSearching ?? this.isSearching,
       searchQuery: searchQuery ?? this.searchQuery,
+      genres: genres ?? this.genres,
+      allMovies: allMovies ?? this.allMovies,
+      filteredMovies: filteredMovies ?? this.filteredMovies,
+
 
     );
   }

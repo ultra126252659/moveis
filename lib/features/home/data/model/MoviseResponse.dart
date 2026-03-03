@@ -11,6 +11,7 @@ class MoviesResponse {
   Data? data;
   Meta? meta;
 
+
   // *** تصحيح copyWith هنا ***
   MoviesResponse copyWith({
     String? status,
@@ -31,6 +32,7 @@ class MoviesResponse {
     statusMessage = json['status_message'];
     data = json['data'] != null ? Data.fromJson(json['data']) : null;
     meta = json['@meta'] != null ? Meta.fromJson(json['@meta']) : null;
+
   }
 
   Map<String, dynamic> toJson() {
@@ -118,6 +120,7 @@ class Data {
   int? pageNumber;
   List<Movies>? movies;
 
+
   Data.fromJson(dynamic json) {
     movieCount = json['movie_count'];
     limit = json['limit'];
@@ -127,6 +130,7 @@ class Data {
       json['movies'].forEach((v) {
         movies?.add(Movies.fromJson(v));
       });
+
     }
   }
 

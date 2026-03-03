@@ -10,91 +10,89 @@ import 'package:moves_final_project/features/home/presentation/bloc/home_bloc.da
 import 'package:moves_final_project/features/home/presentation/bloc/home_event.dart';
 import 'package:moves_final_project/features/home/presentation/bloc/home_state.dart';
 import 'package:moves_final_project/features/home/presentation/widget/card_item.dart';
-
+import 'dart:async';
 
 class SearchTab extends StatelessWidget {
   SearchTab({super.key});
-
-
-  TextEditingController searchController = TextEditingController();
+  Timer? debounce;
   @override
   Widget build(BuildContext context) {
-
     return BlocProvider(
       create: (context) => getIt<HomeBloc>(),
-      child:BlocConsumer<HomeBloc, HomeState>(
-        listener: (context, state) {},
+      child: BlocBuilder<HomeBloc, HomeState>(
         builder: (context, state) {
-          print("Current Query: ${state.searchQuery}");
-          print("Movies Count: ${state.moviesResponse?.data?.movies?.length}");
+          final movies = state.moviesResponse?.data?.movies ?? [];
+          final hasQuery = state.searchQuery != null && state.searchQuery!.isNotEmpty;
+
           return SafeArea(
-              child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10.0.dg, vertical: 8.0.dg),
-                  color: ColorsApp.background,
-                  child:Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    spacing: 10.h,
-                    children: [
-                      Container(
-                        margin: EdgeInsets.only(top: 10.h),
-                        child: TextFormField(
-                            onChanged: (value) {
-                              context.read<HomeBloc>().add(GetSearchMoviesEvent(value));
-                            },
-                            controller: searchController,
-                            style: StyleApp.mdText,
-                            decoration: InputDecoration(
-                              hintText: AppString.search,
-                              hintStyle: StyleApp.mdText,
-                              prefixIcon:ImageIcon(AssetImage(IconApp.icSearch),
-                                color: ColorsApp.textPrimary,
-                              ),
-                              filled: true,
-                              fillColor: ColorsApp.surface,
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(16.0.r),
-                                borderSide: BorderSide.none,
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(16.0.r),
-                                borderSide: BorderSide.none,
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(16.0.r),
-                                borderSide: BorderSide.none,
-                              ),
-                              contentPadding: EdgeInsets.symmetric(horizontal: 16.0.dg, vertical: 12.0.dg),
-                            )
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 10.0.dg, vertical: 8.0.dg),
+              color: ColorsApp.background,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+
+                  Container(
+                    margin: EdgeInsets.only(top: 10.h),
+                    child: TextFormField(
+                      onChanged: (query) {
+
+                        if (debounce?.isActive ?? false) debounce!.cancel();
+
+                        debounce = Timer(const Duration(milliseconds: 500), () {
+                          context.read<HomeBloc>().add(GetSearchMoviesEvent(query));
+                        });
+                      },
+                      cursorColor: ColorsApp.primaryGold,
+                      style: StyleApp.mdText.copyWith(fontSize: 16.sp),
+                      decoration: InputDecoration(
+                        hintText: AppString.search,
+                        hintStyle: StyleApp.mdText,
+                        prefixIcon: ImageIcon(
+                          AssetImage(IconApp.icSearch),
+                          color: ColorsApp.textPrimary,
                         ),
+                        filled: true,
+                        fillColor: ColorsApp.surface,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16.0.r),
+                          borderSide: BorderSide.none,
+                        ),
+                        contentPadding: EdgeInsets.symmetric(horizontal: 16.0.dg, vertical: 12.0.dg),
                       ),
+                    ),
+                  ),
 
-                      Expanded(
-                        child:(state.searchQuery == null || state.searchQuery!.isEmpty)
-                            ? Center(child: Image.asset(ImageApp.empty))
-                            : GridView.builder(
-                          key: ValueKey(state.moviesResponse?.data?.movies?.hashCode),
-                          itemCount: state.moviesResponse?.data?.movies?.length ?? 0,
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 3,
-                            childAspectRatio: 0.7,
-                            mainAxisSpacing: 15.h,
-                            crossAxisSpacing: 15.w,
+                  SizedBox(height: 10.h),
 
-                          ),
-                          itemBuilder: (context, index) {
-                            var movie = state.moviesResponse?.data?.movies?[index];
-                            return CardItem(
-                              rating: movie?.rating?.toDouble() ?? 0.0,
-                              imageUrl: movie?.mediumCoverImage ?? "",
-                            );
-                          },
-                        )
-                      )
-                    ],
-                  )
+
+                  Expanded(
+                    child: (movies.isEmpty || !hasQuery || state.getMoviesStatus == RequestStatus.loading)
+                        ? Center(child: Image.asset(ImageApp.empty))
+                        : GridView.builder(
+                      key: ValueKey(movies.hashCode),
+                      itemCount: movies.length,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 0.7,
+                        mainAxisSpacing: 15.h,
+                        crossAxisSpacing: 15.w,
+                      ),
+                      itemBuilder: (context, index) {
+                        final movie = movies[index];
+                        return CardItem(
+                          width: MediaQuery.of(context).size.width * 0.37,
+                          rating: movie.rating?.toDouble() ?? 0.0,
+                          imageUrl: movie.mediumCoverImage ?? "",
+                        );
+                      },
+                    ),
+                  ),
+                ],
               ),
-            );
-        }
+            ),
+          );
+        },
       ),
     );
   }

@@ -8,42 +8,53 @@ import 'package:moves_final_project/features/home/presentation/bloc/home_event.d
 import 'package:moves_final_project/features/home/presentation/bloc/home_state.dart';
 
 class TabBarItem extends StatelessWidget {
-  List<String> label;
-  int count;
-  TabBarItem({super.key, required this.label, required this.count});
+  final List<String> labels;
+  final Function(String) onTap;
+  final String selectedCategory;
+  const TabBarItem({
+    super.key,
+    required this.labels,
+    required this.onTap,
+    required this.selectedCategory,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<HomeBloc, HomeState>(
-        builder:  (context, state) {
-          return ListView.separated(
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
+    return BlocBuilder<HomeBloc, HomeState>(
+      builder: (context, state) {
+        return ListView.separated(
+          shrinkWrap: true,
+          scrollDirection: Axis.horizontal,
+          padding: EdgeInsets.symmetric(horizontal: 10.w),
+          itemCount: labels.length,
+          separatorBuilder: (context, index) => SizedBox(width: 8.w),
+          itemBuilder: (context, index) {
+            final genre = labels[index];
+            final isSelected = selectedCategory == genre; // ✅ استخدم المتغير المرسل
 
-                  },
-                  child: Chip(
-
-                      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-                      backgroundColor:state.selectedCategory == label[index] ? ColorsApp.primaryGold : ColorsApp.background,
-                      shape: RoundedRectangleBorder(
-                        side: BorderSide(color: ColorsApp.primaryGold, width: 2.w),
-                        borderRadius: BorderRadius.circular(10.0.dg),
-                      ),
-                      label: Text(label[index],
-                          style: StyleApp.smText.copyWith(
-                              color: state.selectedCategory == label[index] ? ColorsApp.background : ColorsApp.primaryGold,
-                              fontSize: 20.sp,
-                              fontWeight: FontWeight.bold
-                          ),
-                      )),
-                );
-                },
-              separatorBuilder: (context, index) =>  SizedBox(width: 8.w),
-              itemCount: count);
-        },
-        listener: (context, state) {});
+            return GestureDetector(
+              onTap: () => onTap(genre),
+              child: Chip(
+                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                backgroundColor:
+                isSelected ? ColorsApp.primaryGold : ColorsApp.background,
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(color: ColorsApp.primaryGold, width: 2.w),
+                  borderRadius: BorderRadius.circular(12.r),
+                ),
+                label: Text(
+                  genre,
+                  style: StyleApp.smText.copyWith(
+                    color: isSelected ? ColorsApp.background : ColorsApp.primaryGold,
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 }
