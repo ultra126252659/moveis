@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moves_final_project/di.dart';
-<<<<<<< HEAD
 
-=======
 import 'package:moves_final_project/features/details/presentation/screen/movie_details_screen.dart';
 import 'package:moves_final_project/features/home/presentation/screen/home_screen.dart';
->>>>>>> devAlaa
+
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -15,7 +13,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-   MyApp({super.key});
+   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +24,7 @@ class MyApp extends StatelessWidget {
       builder: (context,child){
           return MaterialApp(
             debugShowCheckedModeBanner: false,
-
+            home: MovieDetailsScreen(),
           );
       },
     );
