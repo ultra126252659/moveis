@@ -7,7 +7,9 @@ import 'package:moves_final_project/core/resources/firebase_functions.dart';
 import 'package:moves_final_project/core/resources/image&icon.dart';
 import 'package:moves_final_project/features/auth/presentation/register_screen.dart';
 import 'package:moves_final_project/features/auth/presentation/reset_password_screen.dart';
+import 'package:moves_final_project/features/home/presentation/bloc/UserProvider.dart';
 import 'package:moves_final_project/features/auth/providers/auth_provider.dart';
+import 'package:moves_final_project/features/home/presentation/screen/home_screen.dart';
 import 'package:provider/provider.dart';
 
 
@@ -32,9 +34,6 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     var authProvider = Provider.of<AuthProvider>(context);
-
-
-
 
     return Scaffold(
       backgroundColor: ColorsApp.background,
@@ -143,11 +142,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         emailController.text,
                         passwordController.text,
                         onSuccess: () {
+
                           authProvider.initUser();
-                          /*Navigator.pushReplacementNamed(
+                          Provider.of<UserProvider>(context, listen: false).loadUserData();
+                         Navigator.pushNamed(
                             context,
-                           // HomeScreen.routeName,
-                          );*/
+                           HomeScreen.routeName,
+                          );
                         },
                         onError: (message) {
                           ScaffoldMessenger.of(context).showSnackBar(

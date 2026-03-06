@@ -25,6 +25,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
   var phoneController = TextEditingController();
+  var nidController = TextEditingController();
+
 
   var formKey = GlobalKey<FormState>();
 
@@ -265,7 +267,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   const SizedBox(height: 32),
 
-
                   ElevatedButton(
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
@@ -273,8 +274,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           emailController.text,
                           passwordController.text,
                           nameController.text,
-                          phoneController.text,
+                          nidController.text,
                           authProvider.selectedAvatarPath,
+                          phoneController.text,
                           onSuccess: () {
                             Navigator.pushReplacementNamed(
                               context,
@@ -296,7 +298,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       }
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Color(0xFFF6BD00),
+                      backgroundColor: const Color(0xFFF6BD00),
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(16),

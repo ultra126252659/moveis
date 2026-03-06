@@ -18,4 +18,5 @@ class ColorsApp {
 
   // Overlays
   static const Color ratingBadgeBg = Color(0x80000000);
+  static const Color red = Color(0xFFE82626);
 }
