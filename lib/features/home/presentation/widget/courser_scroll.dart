@@ -47,44 +47,11 @@ class CourserScroll extends StatelessWidget {
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20.0),
                 ),
-                child: Stack(
-                  children: [
-
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(20.0),
-                      child: Image.network(
-                        movie.mediumCoverImage ?? "",
-                        fit: BoxFit.cover,
-                        height: double.infinity,
-                        width: double.infinity,
-                        errorBuilder: (context, error, stackTrace) =>
-                            Image.asset(ImageApp.bgHome, fit: BoxFit.cover),
-                      ),
-                    ),
-
-
-                    Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                        height: 30,
-                        width: 65,
-                        decoration: BoxDecoration(
-                          color: ColorsApp.shadow.withOpacity(0.5),
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              "${movie.rating ?? 0.0}",
-                              style: StyleApp.smText,
-                            ),
-                            const SizedBox(width: 4),
-                            const Icon(Icons.star, color: ColorsApp.primaryGold, size: 16),
-                          ],
-                        )
-                    )
-                  ],
-                )
+                child: CardItem(
+                    id: movie.id ?? 0,
+                    width: 0.37,
+                    rating: movie.rating?.toDouble() ?? 0.0,
+                    imageUrl: movie.mediumCoverImage ?? "")
             );
           },
         );

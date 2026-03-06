@@ -4,7 +4,8 @@ import 'package:moves_final_project/core/resources/app_string.dart';
 import 'package:moves_final_project/core/resources/style_app.dart';
 
 class SummaryItem extends StatelessWidget {
-  const SummaryItem({super.key});
+  String summary;
+  SummaryItem({super.key, required this.summary});
 
   @override
   Widget build(BuildContext context) {
@@ -16,18 +17,15 @@ class SummaryItem extends StatelessWidget {
            child: Text(AppString.summary,style: StyleApp.lgText,),
 
          ),
-         SizedBox(
-           height: 250.h,
-           child: Padding(
-             padding:  EdgeInsets.symmetric(horizontal: 16),
-             child: SingleChildScrollView(
-               child: Text(
-                   'Following the events of ',
-                   style:StyleApp.smText.copyWith(letterSpacing: 0)
-               )
-               ,
-             ),
-           )
+         Padding(
+           padding:  EdgeInsets.symmetric(horizontal: 16),
+           child: SingleChildScrollView(
+             child: Text(
+                summary,
+                 style:StyleApp.smText.copyWith(letterSpacing: 0)
+             )
+             ,
+           ),
          )
 
        ],

@@ -43,6 +43,7 @@ class ExploreItem extends StatelessWidget {
             itemCount: movies.length,
             itemBuilder: (context, index) {
               return CardItem(
+                id: movies[index].id ?? 0,
                 width: MediaQuery.of(context).size.width * 0.37,
                 rating: movies[index].rating?.toDouble() ?? 0.0,
                 imageUrl: movies[index].mediumCoverImage ?? '',

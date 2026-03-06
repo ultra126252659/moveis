@@ -5,7 +5,9 @@ import 'package:moves_final_project/core/resources/colors_app.dart';
 import 'package:moves_final_project/core/resources/style_app.dart';
 
 class GenresItem extends StatelessWidget {
-  const GenresItem({super.key});
+  List<String> genres;
+  int count;
+   GenresItem({super.key, required this.genres, required this.count });
 
   @override
   Widget build(BuildContext context) {
@@ -29,15 +31,17 @@ class GenresItem extends StatelessWidget {
                 crossAxisSpacing: 10.w,
                 mainAxisSpacing: 10.h,
                 childAspectRatio: 2.3,) ,
-              itemCount:4,
+              itemCount:count,
               itemBuilder: (context, index){
+                String genre = genres[index].toString();
                 return Container(
                   padding: EdgeInsets.symmetric(horizontal: 16,vertical: 10),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(16),
                     color: ColorsApp.surface,
                   ),
-                  child: Text('Action',
+                  child: Text(
+                    genre,
                     textAlign: TextAlign.center,
                     style: StyleApp.mdText,),
                 );

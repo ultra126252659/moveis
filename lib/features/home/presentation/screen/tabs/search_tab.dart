@@ -81,6 +81,7 @@ class SearchTab extends StatelessWidget {
                       itemBuilder: (context, index) {
                         final movie = movies[index];
                         return CardItem(
+                          id: movie.id ?? 0,
                           width: MediaQuery.of(context).size.width * 0.37,
                           rating: movie.rating?.toDouble() ?? 0.0,
                           imageUrl: movie.mediumCoverImage ?? "",

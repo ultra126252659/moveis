@@ -1,6 +1,9 @@
 
+import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:moves_final_project/core/resources/app_string.dart';
+import 'package:moves_final_project/core/resources/auto_route.gr.dart';
 import 'package:moves_final_project/core/resources/image&icon.dart';
 import 'package:moves_final_project/features/onbording/presentation/Screen/Onboarding.dart';
 
@@ -10,7 +13,7 @@ import 'package:moves_final_project/features/onbording/presentation/Screen/Onboa
 
 
 
-
+@RoutePage()
 class Splashscreen extends StatefulWidget {
   static const routeName="SplashScreen";
   const Splashscreen({super.key});
@@ -81,11 +84,7 @@ class _SplashscreenState extends State<Splashscreen> {
   void getNext() {
     Future.delayed(const Duration(seconds: 5), () {
       if (!mounted) return;
-
-      Navigator.pushReplacementNamed(
-        context,
-        MoviesIntroScreen.routeName,
-      );
+      context.pushRoute(MoviesIntroRoute());
     });
   }
 }
