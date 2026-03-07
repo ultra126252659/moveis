@@ -13,7 +13,9 @@ import 'package:moves_final_project/features/home/presentation/screen/tabs/searc
 import 'package:moves_final_project/features/home/presentation/widget/bottom_nav_bar.dart';
 @RoutePage()
 class HomeScreen extends StatelessWidget {
-   HomeScreen({super.key});
+  static const String routeName = " Home";
+
+  HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
