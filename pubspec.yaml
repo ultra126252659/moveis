@@ -26,13 +26,18 @@ dependencies:
   injectable: ^2.7.1+4
   get_it: ^9.2.1
   provider: ^6.1.5+1
+
+
   carousel_slider: ^5.1.2
   flutter_screenutil: ^5.9.3
+
   shared_preferences: ^2.5.4
   introduction_screen: ^4.0.0
   firebase_core: ^4.4.0
   firebase_auth: ^6.1.4
   cloud_firestore: ^6.1.2
+
+
   auto_route: ^11.1.0
 
 
