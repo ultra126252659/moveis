@@ -20,8 +20,8 @@ class BottomNavBar extends StatelessWidget {
           height: 65,
           margin: const EdgeInsets.only(bottom: 30, left: 20, right: 20),
           decoration: BoxDecoration(
-            color: ColorsApp.background,
-            borderRadius: BorderRadius.circular(30),
+            color: ColorsApp.surface,
+            borderRadius: BorderRadius.circular(20),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,

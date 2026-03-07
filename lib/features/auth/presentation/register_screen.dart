@@ -1,15 +1,18 @@
+import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:moves_final_project/Widgets/AppDecorations.dart';
 import 'package:moves_final_project/core/resources/app_string.dart';
+import 'package:moves_final_project/core/resources/auto_route.gr.dart';
 import 'package:moves_final_project/core/resources/firebase_functions.dart';
 import 'package:moves_final_project/features/auth/providers/auth_provider.dart';
 import 'package:provider/provider.dart';
 import 'login_screen.dart';
 
-
+@RoutePage()
 class RegisterScreen extends StatefulWidget {
-  static const String routeName = "Register";
 
   const RegisterScreen({super.key});
 
@@ -278,10 +281,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           authProvider.selectedAvatarPath,
                           phoneController.text,
                           onSuccess: () {
-                            Navigator.pushReplacementNamed(
-                              context,
-                              LoginScreen.routeName,
-                            );
+                            authProvider.initUser();
+                            context.pushRoute(LoginRoute());
                           },
                           onError: (message) {
                             ScaffoldMessenger.of(context).showSnackBar(
@@ -308,7 +309,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       "Create Account",
                       style: GoogleFonts.poppins(
                         color: const Color(0xFF121212),
-                        fontSize: 18,
+                        fontSize: 18.sp,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
@@ -321,21 +322,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       Text(
                         "Already Have Account ? ",
                         style: GoogleFonts.poppins(
-                          fontSize: 14,
+                          fontSize: 14.sp,
                           color: Colors.white,
                         ),
                       ),
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushReplacementNamed(
-                            context,
-                            LoginScreen.routeName,
-                          );
+                          context.pushRoute(LoginRoute());
                         },
                         child: Text(
                           "Login",
                           style: GoogleFonts.poppins(
-                            fontSize: 14,
+                            fontSize: 14.sp,
                             fontWeight: FontWeight.bold,
                             color: Color(0xFFF6BD00),
                           ),

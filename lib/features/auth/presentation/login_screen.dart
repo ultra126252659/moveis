@@ -1,7 +1,10 @@
 
+import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:moves_final_project/core/resources/app_string.dart';
+import 'package:moves_final_project/core/resources/auto_route.gr.dart';
 import 'package:moves_final_project/core/resources/colors_app.dart';
 import 'package:moves_final_project/core/resources/firebase_functions.dart';
 import 'package:moves_final_project/core/resources/image&icon.dart';
@@ -13,7 +16,7 @@ import 'package:moves_final_project/features/home/presentation/screen/home_scree
 import 'package:provider/provider.dart';
 
 
-
+@RoutePage()
 class LoginScreen extends StatefulWidget {
   static const String routeName = "Login";
 
@@ -144,11 +147,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         onSuccess: () {
 
                           authProvider.initUser();
+
                           Provider.of<UserProvider>(context, listen: false).loadUserData();
-                         Navigator.pushNamed(
-                            context,
-                           HomeScreen.routeName,
-                          );
+                       context.pushRoute(HomeRoute());
+
                         },
                         onError: (message) {
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -197,11 +199,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(
-                            context,
-                            RegisterScreen.routeName,
-                          );
-                        },
+                          context.pushRoute(
+                            RegisterRoute());},
                         child: Text(
                           AppString.textCreateOne,
                           style: GoogleFonts.poppins(
@@ -245,10 +244,9 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(height: 24),
 
-                  // زر تسجيل الدخول باستخدام جوجل
+
                   ElevatedButton.icon(
                     onPressed: () {
-                      // كود جوجل هنا
                     },
                     icon: Image.asset(ImageApp.imagegoogle, height: 24),
                     label: Text(

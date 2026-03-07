@@ -1,4 +1,5 @@
 
+import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:moves_final_project/Widgets/AppDecorations.dart';
@@ -9,7 +10,7 @@ import 'package:moves_final_project/core/resources/firebase_functions.dart';
 import 'package:moves_final_project/core/resources/image&icon.dart';
 
 
-
+@RoutePage()
 class ResetPasswordScreen extends StatelessWidget {
   static const String routeName = "ResetPassword";
 
