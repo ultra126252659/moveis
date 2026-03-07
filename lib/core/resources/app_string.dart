@@ -7,7 +7,7 @@ class AppString {
   static const String filmName = 'Doctor Strange in the Multiverse of Madness';
   static const String simialr = 'Similar ';
   static const String summary = 'Summary ';
-  static const String textSplash ='Supervised by Mohamed Nabil';
+  static const String textSplash ='Supervised by Eng:Alaa And Eng:Mohamad';
   static const String titleOnboarding1 ='Find Your Next\nFavorite Movie Here' ;
   static const String descriptionOnboarding1 ='Get access to a huge library of movies to suit all tastes. You will surely like it.';
   static const String titleOnboarding2 ='Discover Movies';

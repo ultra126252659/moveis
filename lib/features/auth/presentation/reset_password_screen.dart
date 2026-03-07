@@ -49,8 +49,8 @@ class ResetPasswordScreen extends StatelessWidget {
 
               Image.asset(
                 ImageApp.imageForgotpassword,
-                height: 250,
-                fit: BoxFit.contain,
+                height: 450,
+                fit: BoxFit.cover,
               ),
 
               const SizedBox(height: 40),
@@ -81,7 +81,7 @@ class ResetPasswordScreen extends StatelessWidget {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor:ColorsApp.background,
+                  backgroundColor:ColorsApp.primaryGold,
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),

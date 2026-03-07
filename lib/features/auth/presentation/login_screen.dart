@@ -58,7 +58,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   TextFormField(
                     controller: emailController,
-                    style: const TextStyle(color:ColorsApp.background),
+                    style: const TextStyle(color:ColorsApp.textPrimary),
                     decoration: InputDecoration(
                       hintText: AppString.hintTextEmail,
                       hintStyle: GoogleFonts.poppins(
@@ -69,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       fillColor: const Color(0xFF282A28),
                       prefixIcon: Padding(
                         padding: const EdgeInsets.all(12.0),
-                        child: Image.asset(ImageApp.imageEmail, width: 20, color:ColorsApp.background),
+                        child: Image.asset(ImageApp.imageEmail, width: 20, color:ColorsApp.textPrimary),
                       ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16),
@@ -83,7 +83,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   TextFormField(
                     controller: passwordController,
                     obscureText: !isPasswordVisible,
-                    style: const TextStyle(color: ColorsApp.background),
+                    style: const TextStyle(color: ColorsApp.textPrimary),
                     decoration: InputDecoration(
                       hintText: AppString.hintTextPassword,
                       hintStyle: GoogleFonts.poppins(
@@ -121,10 +121,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     alignment: Alignment.centerRight,
                     child: TextButton(
                       onPressed: () {
-                        Navigator.pushNamed(
-                          context,
-                          ResetPasswordScreen.routeName,
-                        );
+                        context.pushRoute(ResetPasswordRoute());
                       },
                       child: Text(
                         AppString.hintTextForgetPassword,
@@ -218,7 +215,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: [
                       Expanded(
                         child: Divider(
-                          color:ColorsApp.background,
+                          color:ColorsApp.primaryGold,
                           thickness: 1,
                           endIndent: 16,
                           indent: 32,
