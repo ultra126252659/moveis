@@ -31,4 +31,6 @@ class AppString {
   static const String textVerifyEmail='Verify Email';
   static const String textRegister='Register';
   static const String textAvatar='Avatar';
+  static const String textCast='Cast';
+  static const String textGenres='Genres';
 }

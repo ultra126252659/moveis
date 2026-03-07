@@ -1,113 +1,178 @@
 
+
+
+import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moves_final_project/core/resources/app_string.dart';
+import 'package:moves_final_project/core/resources/auto_route.gr.dart';
 import 'package:moves_final_project/core/resources/colors_app.dart';
-<<<<<<< HEAD
-import '../../../../core/resources/image&icon.dart';
-import '../../../../core/resources/style_app.dart';
-import '../widgets/cusotm_btn.dart';
-import '../widgets/custom_list_of_chips.dart';
-import '../widgets/screen_shot_list.dart';
-import '../widgets/similar_gridView.dart';
-=======
 import 'package:moves_final_project/core/resources/image&icon.dart';
 import 'package:moves_final_project/core/resources/style_app.dart';
+import 'package:moves_final_project/di.dart';
+import 'package:moves_final_project/features/details/presentation/bloc/details_bloc.dart';
+import 'package:moves_final_project/features/details/presentation/bloc/details_event.dart';
+import 'package:moves_final_project/features/details/presentation/bloc/details_state.dart';
+import 'package:moves_final_project/features/details/presentation/widgets/cast_item.dart';
+import 'package:moves_final_project/features/details/presentation/widgets/chip_item.dart';
 import 'package:moves_final_project/features/details/presentation/widgets/cusotm_btn.dart';
 import 'package:moves_final_project/features/details/presentation/widgets/custom_list_of_chips.dart';
+import 'package:moves_final_project/features/details/presentation/widgets/genres_item.dart';
 import 'package:moves_final_project/features/details/presentation/widgets/screen_shot_list.dart';
 import 'package:moves_final_project/features/details/presentation/widgets/similar_gridView.dart';
-
->>>>>>> devAlaa
-
+import 'package:moves_final_project/features/details/presentation/widgets/summary_item.dart';
+import 'package:moves_final_project/features/home/presentation/bloc/home_state.dart';
+@RoutePage()
 class MovieDetailsScreen extends StatelessWidget {
-  const  MovieDetailsScreen({super.key});
+  final int movieId;
+  MovieDetailsScreen({super.key, required this.movieId});
 
   @override
   Widget build(BuildContext context) {
 
-    return Scaffold(
-        backgroundColor: ColorsApp.background,
-        extendBodyBehindAppBar: true,
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          automaticallyImplyActions: false,
-          leadingWidth: 50,
-automaticallyImplyLeading: false,
-          title: GestureDetector(onTap: (){},
-              child: ImageIcon(AssetImage(IconApp.arrowBack),color: Colors.white,size: 24,)),
-          actions: [ImageIcon(AssetImage(IconApp.saveIc),color: Colors.white,),SizedBox(width: 15,)],),
-        body: SingleChildScrollView(child: Column(
+    return BlocProvider(
+      create: (context) => getIt<DetailsBloc>()..add(GetDetailsEvent(movieId)),
+      child: BlocConsumer<DetailsBloc, DetailsState>(
+        listener: (context, state) {},
+          builder: (context, state) {
+            if(state.getDetailsMovies == RequestStatus.loading){
+              return const Center(child: CircularProgressIndicator(
+                color: ColorsApp.primaryGold,
+              ));
+            }
 
-         crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-          Stack(
-            alignment: Alignment.center,
-            children: [
-              Image.asset(ImageApp.bgHome,width: 430.w,height: 630.h,fit: BoxFit.cover,),
+            if(state.getDetailsMovies == RequestStatus.error){
+              return Center(child: Text(state.errorMassage ?? 'something went wrong'));
+            }
 
-              Center(
-                child: Image.asset(ImageApp.play,width: 97.w,height: 97.h,),
+            final movie = state.moviesResponse?.data?.movie;
+
+
+            if(movie == null){
+              return const Center(child: Text('no data'));
+            }
+
+            return Scaffold(
+              backgroundColor: ColorsApp.background,
+              extendBodyBehindAppBar: true,
+              body: SingleChildScrollView(
+                child: Column(
+                  spacing: 20,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        CachedNetworkImage(
+                          imageUrl: movie.largeCoverImage ?? '',
+                          height: 430.h,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                          placeholder: (context, url) => const Center(child: CircularProgressIndicator(
+                            color: ColorsApp.primaryGold,
+                          )),
+                          errorWidget: (context, url, error) => const Icon(Icons.error),
+                        ),
+                        Container(
+                          width: double.infinity,
+                          height: 430.h,
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              begin: Alignment.topCenter,
+                              end: Alignment.bottomCenter,
+                              colors: [
+                                Colors.black.withOpacity(0.5),
+                                Colors.black.withOpacity(0.6),
+                                Colors.black.withOpacity(0.8),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          top: 40,
+                          left: 16,
+                          right: 16,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              IconButton(
+                                  onPressed: (){
+                                    context.pushRoute(HomeRoute());
+                                  },
+                                  icon:  ImageIcon(
+                                    AssetImage(IconApp.arrowBack),
+                                    color: ColorsApp.textPrimary,size: 30,)
+                                ,),
+                              IconButton(
+                                  onPressed: (){},
+                                  icon:   ImageIcon(
+                                    AssetImage(IconApp.saveIc),
+                                    color: ColorsApp.textPrimary,size: 30,),
+                              )
+
+                            ]
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 100,
+                          left: 16,
+                          right: 16,
+                          child: Text(
+                            textAlign: TextAlign.center,
+                            movie.title ?? '',
+                            style: StyleApp.lgText,
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 50.sp,
+                          left: 16,
+                          right: 16,
+                          child: Text(
+                            textAlign: TextAlign.center,
+                            '${movie.year}',
+                            style: StyleApp.lgText,
+                          ),
+                        ),
+                      ],
+                    ),
+                    CustomBtn(text: 'watch', onPressed: () {  },),
+                 Row(
+                   spacing: 10,
+                   mainAxisAlignment: MainAxisAlignment.center,
+                   children: [
+                     ChipItem(
+                         count: movie.likeCount ?? 0,
+                         icon: IconApp.heart
+                     ),
+                     ChipItem(
+                         count: movie.runtime?.toInt() ?? 0,
+                         icon: IconApp.time
+                     ),
+                     ChipItem(
+                         count: movie.rating ?? 0.0,
+                         icon: IconApp.star
+                     )
+                   ],
+                 ),
+                    ScreenShotList(
+                        movie: movie
+                    ),
+                    SimilarItem(
+                      id: movie.id ?? 0,
+                    ),
+                    SummaryItem(summary: movie.descriptionFull ?? '',),
+                    CastItem( castList: movie.cast ?? [],),
+                    GenresItem(genres: movie.genres ?? [],
+                      count: movie.genres?.length ?? 0,),
+                  ],
+                ),
               ),
-              Positioned(
-                  bottom: 100,
-                  left: 16,
-                  right: 16,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-<<<<<<< HEAD
-                    child: Text(textAlign: TextAlign.center,AppString.filmName,style: StyleApp.lgText,),
-=======
-                    child: Text(textAlign: TextAlign.center,AppString.supTitleHome,style: StyleApp.lgText,),
->>>>>>> devAlaa
-                  )),
-              Positioned(
-                  bottom: 60.sp,
-                  left: 16,
-                  right: 16,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Text(textAlign: TextAlign.center,'2021',style: StyleApp.lgText,),
-                  )),
-            ],
-          ),
-            CustomBtn(text: 'watch', onPressed: () {  },),
-          SizedBox(height: 15.h,),
-            ChipsListCustom(),
-
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-<<<<<<< HEAD
-              child: Text(AppString.subTitleDetailsScreenShots,style: StyleApp.lgText,),
-=======
-              child: Text(AppString.supTitleHome,style: StyleApp.lgText,),
->>>>>>> devAlaa
-            ),SizedBox(height: 1.h,),
-            ScreenShotList(),
-            SizedBox(height: 9.h,),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-<<<<<<< HEAD
-              child: Text(AppString.simialr,style: StyleApp.lgText,),
-=======
-              child: Text(AppString.supTitleHome,style: StyleApp.lgText,),
->>>>>>> devAlaa
-            ),SizedBox(height: 1.h,),
-            CusctomGridView(),
-            SizedBox(height: 9.h,),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-<<<<<<< HEAD
-              child: Text(AppString.summary,style: StyleApp.lgText,),
-=======
-              child: Text(AppString.supTitleHome,style: StyleApp.lgText,),
->>>>>>> devAlaa
-            ),SizedBox(height: 1.h,),
-            Text(
-
-                style:StyleApp.smText.copyWith(letterSpacing: 0) ,'Following the events of Spider-Man No Way Home, Doctor Strange unwittingly casts a forbidden spell that accidentally opens up the multiverse. With help from Wong and Scarlet Witch, Strange confronts various versions of himself as well as teaming up with the young America Chavez while traveling through various realities and working to restore reality as he knows it. Along the way, Strange and his allies realize they must take on a powerful new adversary who seeks to take over the multiverse.—Blazer346')
-            ],)));
+            );
+          },),
+    );
   }
 }
 

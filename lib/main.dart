@@ -1,22 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:moves_final_project/core/resources/auto_route.dart';
 import 'package:moves_final_project/di.dart';
-<<<<<<< HEAD
+import 'package:moves_final_project/features/auth/providers/auth_provider.dart';
 
-=======
 import 'package:moves_final_project/features/details/presentation/screen/movie_details_screen.dart';
 import 'package:moves_final_project/features/home/presentation/screen/home_screen.dart';
->>>>>>> devAlaa
+import 'package:provider/provider.dart';
+
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+
   configureDependencies();
-  runApp( MyApp());
+  runApp(
+      MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (_) => AuthProvider()),
+          ],
+          child:MyApp()));
 }
 
 class MyApp extends StatelessWidget {
-   MyApp({super.key});
-
+    MyApp({super.key});
+   final _appRouter = AppRouter();
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -24,9 +31,9 @@ class MyApp extends StatelessWidget {
         minTextAdapt: true,
         splitScreenMode: true,
       builder: (context,child){
-          return MaterialApp(
+          return MaterialApp.router(
             debugShowCheckedModeBanner: false,
-
+            routerConfig: _appRouter.config(),
           );
       },
     );

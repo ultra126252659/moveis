@@ -1,67 +1,70 @@
-
-<<<<<<< HEAD
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import '../../../../core/resources/colors_app.dart';
-import '../../../../core/resources/image&icon.dart';
-=======
-
-import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:moves_final_project/core/resources/app_string.dart';
 import 'package:moves_final_project/core/resources/colors_app.dart';
 import 'package:moves_final_project/core/resources/image&icon.dart';
->>>>>>> devAlaa
+import 'package:moves_final_project/core/resources/style_app.dart';
+import 'package:moves_final_project/di.dart';
+import 'package:moves_final_project/features/details/presentation/bloc/details_bloc.dart';
+import 'package:moves_final_project/features/details/presentation/bloc/details_event.dart';
+import 'package:moves_final_project/features/details/presentation/bloc/details_state.dart';
+import 'package:moves_final_project/features/home/presentation/bloc/home_state.dart';
+import 'package:moves_final_project/features/home/presentation/widget/card_item.dart';
 
-class CusctomGridView extends StatelessWidget {
-  const CusctomGridView({super.key});
+class SimilarItem extends StatelessWidget {
+   int id;
+   SimilarItem({super.key, required this.id});
 
   @override
   Widget build(BuildContext context) {
-    return     SizedBox(
-      child: GridView.builder(
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
-          gridDelegate:SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,childAspectRatio: 2/3,mainAxisSpacing: 37,crossAxisSpacing: 37) ,itemCount:4, itemBuilder: (context, index){
+    return BlocProvider(
+      create: (context) => getIt<DetailsBloc>()..add(GetSuggestionsEvent(id)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Padding(
+            padding:  EdgeInsets.symmetric(horizontal: 16.0,vertical: 10),
+            child: Text(AppString.simialr,style: StyleApp.lgText,),
 
-
-        return Stack(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(16),
-              child: Image.asset(
-                ImageApp.bgHome,
-                fit: BoxFit.cover,
-              ),
-            ),
-            Positioned(
-              top: 8,
-              left: 8,
-              child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                decoration: BoxDecoration(
-                  color: Color.fromRGBO(18, 19, 18, 0.71),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      '4.5',
-                      style: TextStyle(color: Colors.white, fontSize: 16),
-                    ),
-                    SizedBox(width: 4),
-                    ImageIcon(
-                      AssetImage(IconApp.star),
-                      color: ColorsApp.primaryGold,
-                      size: 16,
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        );
-      }),
+          ),
+          BlocBuilder<DetailsBloc, DetailsState>(
+              builder: (context, state) {
+                final movies = state.moviesResponse?.data?.movies ?? [];
+                if (state.getSuggestionsMovies == RequestStatus.loading) {
+                  return const Center(child: CircularProgressIndicator(
+                    color: ColorsApp.primaryGold,
+                  ));
+                }
+                if (state.getSuggestionsMovies == RequestStatus.error) {
+                  return Center(child: Text(state.errorMassage ?? ''));
+                }
+                if (state.getSuggestionsMovies == RequestStatus.success) {
+                  return GridView.builder(
+                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      gridDelegate:SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 10.w,
+                        mainAxisSpacing: 10.h,
+                        childAspectRatio: 0.7,) ,
+                      itemCount:movies.length,
+                      itemBuilder: (context, index){
+                        var movie = movies[index];
+                        return CardItem(
+                          id: movie.id ?? 0,
+                            width: 0.37,
+                            rating: movie.rating ?? 0.0,
+                            imageUrl: movie.mediumCoverImage ?? '',
+                        );
+                      });
+                }
+                return  SizedBox();
+              }
+          )
+        ],
+      ),
     );
   }
 }
