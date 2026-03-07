@@ -1,10 +1,10 @@
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moves_final_project/core/resources/auto_route.dart';
 import 'package:moves_final_project/di.dart';
 import 'package:moves_final_project/features/auth/providers/auth_provider.dart';
-
 import 'package:moves_final_project/features/details/presentation/screen/movie_details_screen.dart';
 import 'package:moves_final_project/features/home/presentation/screen/home_screen.dart';
 import 'package:provider/provider.dart';
@@ -40,5 +40,6 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
 
 

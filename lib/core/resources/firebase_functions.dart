@@ -1,12 +1,10 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:moves_final_project/features/auth/data/model/user_model.dart';
 
 class FirebaseFunctions {
   static CollectionReference<UserModel> getUsersCollection() {
-    return  FirebaseFirestore.instance
+    return FirebaseFirestore.instance
         .collection("Users")
         .withConverter<UserModel>(
       fromFirestore: (snapshot, _) {
@@ -17,11 +15,13 @@ class FirebaseFunctions {
       },
     );
   }
+
   static Future<void> saveUser(UserModel user) {
     var collection = getUsersCollection();
     var docRef = collection.doc(user.id);
     return docRef.set(user);
   }
+
   static Future<UserModel?> readUser() async {
     var collection = getUsersCollection();
     DocumentSnapshot<UserModel> data = await collection
@@ -31,19 +31,27 @@ class FirebaseFunctions {
     return data.data();
   }
 
-
+  static Future<void> updateUserData(
+      UserModel updatedUser, {
+        required Function onSuccess,
+        required Function onError,
+      }) async {
+    try {
+      var collection = getUsersCollection();
+      await collection.doc(updatedUser.id).update(updatedUser.toJson());
+      onSuccess();
+    } catch (e) {
+      onError(e.toString());
+    }
+  }
 
   static Future<void> resetPassword(String email) async {
     await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
-
   }
-
-
 
   static Future<void> signOut() async {
     await FirebaseAuth.instance.signOut();
   }
-
 
   static Future<void> login(
       String emailAddress,
@@ -58,11 +66,7 @@ class FirebaseFunctions {
       );
 
       onSuccess();
-     if (credential.user!.emailVerified) {
-         onSuccess();
-       } else {
-         onError("Email not verified");
-       }
+
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         onError('No user found for that email.');
@@ -74,40 +78,68 @@ class FirebaseFunctions {
     }
   }
 
+  static Future<void> deleteAccount({
+    required Function onSuccess,
+    required Function onError,
+  }) async {
+    try {
+      User? currentUser = FirebaseAuth.instance.currentUser;
 
+      if (currentUser != null) {
+        await currentUser.delete();
+
+        onSuccess();
+      } else {
+        onError("مفيش مستخدم مسجل دخول حالياً.");
+      }
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'requires-recent-login') {
+        onError("لأسباب أمنية، يرجى تسجيل الخروج والدخول مجدداً لتتمكن من مسح الحساب.");
+      } else {
+        onError(e.message ?? "حدث خطأ أثناء مسح الحساب.");
+      }
+    } catch (e) {
+      onError(e.toString());
+    }
+  }
   static Future<void> createUser(
       String email,
       String password,
       String name,
       String nid,
-      String avatar, { // <--- 1. أضفنا متغير مسار الصورة هنا
+      String avatarPath,
+      String phone,
+      {
         required Function onSuccess,
-        required Function onError,
+        required Function(String) onError,
       }) async {
     try {
-      final credential = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email, password: password);
+      print(" Creating account in Auth...");
 
-      var user = UserModel(
-        name: name,
+      final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
-        nid: nid,
-        id: credential.user!.uid,
-        avatar: avatar, // <--- 2. تمرير الصورة للموديل ليتم حفظها في Firestore
+        password: password,
       );
-      print(user.toJson());
-      await saveUser(user);
-      credential.user!.sendEmailVerification();
+
+      await credential.user!.updateDisplayName(name);
+      await credential.user!.updatePhotoURL(avatarPath);
+
+      print(" Account created successfully in Auth! (No Database)");
+
       onSuccess();
+
     } on FirebaseAuthException catch (e) {
+      print("Auth Error: ${e.code}");
+
       if (e.code == 'weak-password') {
-        onError('The password provided is too weak.');
+        onError('The password is too weak. It must be at least 6 characters.');
       } else if (e.code == 'email-already-in-use') {
-        onError('The account already exists for that email.');
+        onError('This email is already in use. Try another one or login.');
       } else {
-        onError(e.code);
+        onError(e.message ?? 'An error occurred during registration.');
       }
     } catch (e) {
+      print(" General Error: $e");
       onError(e.toString());
     }
   }

@@ -10,7 +10,9 @@ import 'package:moves_final_project/core/resources/firebase_functions.dart';
 import 'package:moves_final_project/core/resources/image&icon.dart';
 import 'package:moves_final_project/features/auth/presentation/register_screen.dart';
 import 'package:moves_final_project/features/auth/presentation/reset_password_screen.dart';
+import 'package:moves_final_project/features/home/presentation/bloc/UserProvider.dart';
 import 'package:moves_final_project/features/auth/providers/auth_provider.dart';
+import 'package:moves_final_project/features/home/presentation/screen/home_screen.dart';
 import 'package:provider/provider.dart';
 
 
@@ -140,8 +142,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         emailController.text,
                         passwordController.text,
                         onSuccess: () {
+
                           authProvider.initUser();
-                          context.pushRoute(HomeRoute());
+
+                          Provider.of<UserProvider>(context, listen: false).loadUserData();
+                       context.pushRoute(HomeRoute());
+
                         },
                         onError: (message) {
                           ScaffoldMessenger.of(context).showSnackBar(
