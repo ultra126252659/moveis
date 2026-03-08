@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:moves_final_project/core/resources/firebase_functions.dart';
 import 'package:moves_final_project/features/auth/presentation/login_screen.dart';
-import 'package:moves_final_project/features/home/presentation/bloc/UserProvider.dart';
-import 'package:moves_final_project/features/home/presentation/widget/Edit%20profile.dart';
+import 'package:moves_final_project/features/home/presentation/provider/UserProvider.dart';
+import 'package:moves_final_project/features/edit_profil/presentation/screen/Edit%20profile.dart';
 import 'package:provider/provider.dart';
 
 
@@ -28,111 +28,111 @@ class _ProfileScreenState extends State<ProfileTab> {
   }
   @override
   Widget build(BuildContext context) {
-    var userProvider = Provider.of<UserProvider>(context);
-    var user = userProvider.user;
-    if (user == null) {
-      return const Scaffold(
-        backgroundColor: Color(0xFF1E1E1E),
-        body: Center(child: CircularProgressIndicator(color: Colors.amber)),
-      );
-    }
 
-    return Scaffold(
-      backgroundColor: const Color(0xFF1E1E1E),
-      body: SafeArea(
-        child: Column(
-          children: [
-            const SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    children: [
-                      CircleAvatar(
-                        radius: 40,
-                        backgroundColor: Colors.grey[800],
-                        backgroundImage: user.avatar.isNotEmpty && user.avatar.contains('assets')
-                            ? AssetImage(user.avatar)
-                            : null,
-                        child: user.avatar.isEmpty || !user.avatar.contains('assets')
-                            ? const Icon(Icons.person, size: 40, color: Colors.white)
-                            : null,
-                      ),
-                      const SizedBox(height: 10),
-                      Text(
-                        user.name,
-                        style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      _buildStatColumn(user.watchList.length.toString(), "Wish List"),
-                      const SizedBox(width: 30),
-                      _buildStatColumn(user.history.length.toString(), "History"),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 20),
+    return ChangeNotifierProvider(
+      create: (context) => UserProvider()..loadUserData(),
+      child:Consumer<UserProvider>(
+        builder: (context, userProvider, child) {
+          var user = userProvider.user;
+         return  Scaffold(
+           backgroundColor: const Color(0xFF1E1E1E),
+           body: SafeArea(
+             child: Column(
+               children: [
+                 const SizedBox(height: 20),
+                 Padding(
+                   padding: const EdgeInsets.symmetric(horizontal: 20),
+                   child: Row(
+                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                     children: [
+                       Column(
+                         children: [
+                           CircleAvatar(
+                             radius: 40,
+                             backgroundColor: Colors.grey[800],
+                             backgroundImage: user!.avatar.isNotEmpty && user.avatar.contains('assets')
+                                 ? AssetImage(user.avatar)
+                                 : null,
+                             child: user.avatar.isEmpty || !user.avatar.contains('assets')
+                                 ? const Icon(Icons.person, size: 40, color: Colors.white)
+                                 : null,
+                           ),
+                           const SizedBox(height: 10),
+                           Text(
+                             user!.name,
+                             style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+                           ),
+                         ],
+                       ),
+                       Row(
+                         children: [
+                           _buildStatColumn(user!.watchList.length.toString(), "Wish List"),
+                           const SizedBox(width: 30),
+                           _buildStatColumn(user!.history.length.toString(), "History"),
+                         ],
+                       ),
+                     ],
+                   ),
+                 ),
+                 const SizedBox(height: 20),
 
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.amber,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-              ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const UpdateProfileScreen()),
-                );
-                },
-               child: const Text("Edit Profile", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
-                ),
-                  ),
-                  const SizedBox(width: 15),
-                  Expanded(
-                    child: ElevatedButton.icon(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.red,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                      ),
+                 Padding(
+                   padding: const EdgeInsets.symmetric(horizontal: 20),
+                   child: Row(
+                     children: [
+                       Expanded(
+                         child: ElevatedButton(
+                           style: ElevatedButton.styleFrom(
+                             backgroundColor: Colors.amber,
+                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                           ),
+                           onPressed: () {
+                             Navigator.push(
+                               context,
+                               MaterialPageRoute(builder: (context) => const UpdateProfileScreen()),
+                             );
+                           },
+                           child: const Text("Edit Profile", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+                         ),
+                       ),
+                       const SizedBox(width: 15),
+                       Expanded(
+                         child: ElevatedButton.icon(
+                           style: ElevatedButton.styleFrom(
+                             backgroundColor: Colors.red,
+                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                           ),
 
-                      onPressed: () async {
+                           onPressed: () async {
 
-                       Navigator.pushNamed(context, LoginScreen.routeName);
-                      },
-                      icon: const Icon(Icons.exit_to_app, color: Colors.white),
-                      label: const Text("Exit", style: TextStyle(color: Colors.white)),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            const SizedBox(height: 30),
-            Row(
-              children: [
-                _buildTabButton(0, "Watch List", Icons.list),
-                _buildTabButton(1, "History", Icons.folder),
-              ],
-            ),
+                             Navigator.pushNamed(context, LoginScreen.routeName);
+                           },
+                           icon: const Icon(Icons.exit_to_app, color: Colors.white),
+                           label: const Text("Exit", style: TextStyle(color: Colors.white)),
+                         ),
+                       ),
+                     ],
+                   ),
+                 ),
+                 const SizedBox(height: 30),
+                 Row(
+                   children: [
+                     _buildTabButton(0, "Watch List", Icons.list),
+                     _buildTabButton(1, "History", Icons.folder),
+                   ],
+                 ),
 
-            Container(height: 1, color: Colors.grey[800]),
-            Expanded(
-              child: _selectedTabIndex == 0
-                  ? _buildMoviesGrid(user.watchList)
-                  : _buildMoviesGrid(user.history),
-            ),
-          ],
-        ),
+                 Container(height: 1, color: Colors.grey[800]),
+                 Expanded(
+                   child: _selectedTabIndex == 0
+                       ? _buildMoviesGrid(user!.watchList)
+                       : _buildMoviesGrid(user!.history),
+                 ),
+               ],
+             ),
+           ),
+         );
+        }
       ),
     );
   }

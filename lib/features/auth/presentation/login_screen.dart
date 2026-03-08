@@ -1,6 +1,7 @@
 
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:firebase_auth/firebase_auth.dart' hide AuthProvider;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:moves_final_project/core/resources/app_string.dart';
@@ -10,7 +11,7 @@ import 'package:moves_final_project/core/resources/firebase_functions.dart';
 import 'package:moves_final_project/core/resources/image&icon.dart';
 import 'package:moves_final_project/features/auth/presentation/register_screen.dart';
 import 'package:moves_final_project/features/auth/presentation/reset_password_screen.dart';
-import 'package:moves_final_project/features/home/presentation/bloc/UserProvider.dart';
+import 'package:moves_final_project/features/home/presentation/provider/UserProvider.dart';
 import 'package:moves_final_project/features/auth/providers/auth_provider.dart';
 import 'package:moves_final_project/features/home/presentation/screen/home_screen.dart';
 import 'package:provider/provider.dart';
@@ -243,7 +244,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
 
                   ElevatedButton.icon(
-                    onPressed: () {
+                    onPressed: ()  async {
+                       await FirebaseFunctions().signInWithGoogle();
+
                     },
                     icon: Image.asset(ImageApp.imagegoogle, height: 24),
                     label: Text(

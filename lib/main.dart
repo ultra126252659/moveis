@@ -7,12 +7,15 @@ import 'package:moves_final_project/di.dart';
 import 'package:moves_final_project/features/auth/providers/auth_provider.dart';
 import 'package:moves_final_project/features/details/presentation/screen/movie_details_screen.dart';
 import 'package:moves_final_project/features/home/presentation/screen/home_screen.dart';
+import 'package:moves_final_project/firebase_options.dart';
 import 'package:provider/provider.dart';
 
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   configureDependencies();
   runApp(
       MultiProvider(
