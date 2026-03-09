@@ -60,10 +60,14 @@ class FirebaseFunctions {
   }
 
   static Future<UserModel?> readUser() async {
+    User? user = FirebaseAuth.instance.currentUser;
+
+    if (user == null) return null;
+
     var collection = getUsersCollection();
-    DocumentSnapshot<UserModel> data = await collection
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .get();
+
+    DocumentSnapshot<UserModel> data =
+    await collection.doc(user.uid).get();
 
     return data.data();
   }
@@ -88,6 +92,7 @@ class FirebaseFunctions {
 
   static Future<void> signOut() async {
     await FirebaseAuth.instance.signOut();
+    await GoogleSignIn().signOut();
   }
 
   static Future<void> login(
@@ -144,26 +149,48 @@ class FirebaseFunctions {
       String name,
       String nid,
       String avatarPath,
-      String phone,
-      {
+      String phone, {
         required Function onSuccess,
         required Function(String) onError,
       }) async {
     try {
-      print(" Creating account in Auth...");
+      print("Creating account in Auth...");
 
-      final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      final credential =
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
 
-      await credential.user!.updateDisplayName(name);
-      await credential.user!.updatePhotoURL(avatarPath);
+      final user = credential.user;
 
-      print(" Account created successfully in Auth! (No Database)");
+      if (user == null) {
+        onError("User creation failed");
+        return;
+      }
+
+
+      await user.updateDisplayName(name);
+      await user.updatePhotoURL(avatarPath);
+
+
+      UserModel newUser = UserModel(
+        id: user.uid,
+        name: name,
+        email: email,
+        avatar: avatarPath,
+        phone: phone,
+        nid: nid,
+        watchList: [],
+        history: [],
+      );
+
+
+      await FirebaseFunctions.saveUser(newUser);
+
+      print("Account created successfully and saved to Firestore");
 
       onSuccess();
-
     } on FirebaseAuthException catch (e) {
       print("Auth Error: ${e.code}");
 
@@ -175,7 +202,7 @@ class FirebaseFunctions {
         onError(e.message ?? 'An error occurred during registration.');
       }
     } catch (e) {
-      print(" General Error: $e");
+      print("General Error: $e");
       onError(e.toString());
     }
   }

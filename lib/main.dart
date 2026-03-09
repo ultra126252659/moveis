@@ -9,6 +9,8 @@ import 'package:moves_final_project/features/home/presentation/screen/home_scree
 import 'package:moves_final_project/firebase_options.dart';
 import 'package:provider/provider.dart';
 
+import 'features/home/presentation/provider/UserProvider.dart';
+
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,6 +21,7 @@ void main() async{
   runApp(
       MultiProvider(
           providers: [
+            ChangeNotifierProvider(create: (_) => UserProvider()),
             ChangeNotifierProvider(create: (_) => AuthProvider()),
           ],
           child:MyApp()));

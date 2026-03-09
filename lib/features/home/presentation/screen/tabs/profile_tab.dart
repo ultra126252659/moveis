@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:moves_final_project/core/resources/colors_app.dart';
 import 'package:moves_final_project/features/auth/presentation/login_screen.dart';
 import 'package:moves_final_project/features/home/presentation/provider/UserProvider.dart';
 import 'package:moves_final_project/features/edit_profil/presentation/screen/Edit%20profile.dart';
+import 'package:moves_final_project/features/home/presentation/widget/card_item.dart';
 import 'package:provider/provider.dart';
-
 
 class ProfileTab extends StatefulWidget {
   const ProfileTab({Key? key}) : super(key: key);
@@ -19,136 +19,203 @@ class _ProfileScreenState extends State<ProfileTab> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      var provider = Provider.of<UserProvider>(context, listen: false);
-      if (provider.user == null) {
-        provider.loadUserData();
-      }
+
+    Future.microtask(() {
+      Provider.of<UserProvider>(context, listen: false).loadUserData();
     });
   }
+
   @override
   Widget build(BuildContext context) {
+    return Consumer<UserProvider>(
+      builder: (context, userProvider, child) {
+        var user = userProvider.user;
 
-    return ChangeNotifierProvider(
-      create: (context) => UserProvider()..loadUserData(),
-      child:Consumer<UserProvider>(
-        builder: (context, userProvider, child) {
-          var user = userProvider.user;
-         return  Scaffold(
-           backgroundColor: const Color(0xFF1E1E1E),
-           body: SafeArea(
-             child: Column(
-               children: [
-                 const SizedBox(height: 20),
-                 Padding(
-                   padding: const EdgeInsets.symmetric(horizontal: 20),
-                   child: Row(
-                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                     children: [
-                       Column(
-                         children: [
-                           CircleAvatar(
-                             radius: 40,
-                             backgroundColor: Colors.grey[800],
-                             backgroundImage: user!.avatar.isNotEmpty && user.avatar.contains('assets')
-                                 ? AssetImage(user.avatar)
-                                 : null,
-                             child: user.avatar.isEmpty || !user.avatar.contains('assets')
-                                 ? const Icon(Icons.person, size: 40, color: Colors.white)
-                                 : null,
-                           ),
-                           const SizedBox(height: 10),
-                           Text(
-                             user!.name,
-                             style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
-                           ),
-                         ],
-                       ),
-                       Row(
-                         children: [
-                           _buildStatColumn(user!.watchList.length.toString(), "Wish List"),
-                           const SizedBox(width: 30),
-                           _buildStatColumn(user!.history.length.toString(), "History"),
-                         ],
-                       ),
-                     ],
-                   ),
-                 ),
-                 const SizedBox(height: 20),
-
-                 Padding(
-                   padding: const EdgeInsets.symmetric(horizontal: 20),
-                   child: Row(
-                     children: [
-                       Expanded(
-                         child: ElevatedButton(
-                           style: ElevatedButton.styleFrom(
-                             backgroundColor: Colors.amber,
-                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                           ),
-                           onPressed: () {
-                             Navigator.push(
-                               context,
-                               MaterialPageRoute(builder: (context) => const UpdateProfileScreen()),
-                             );
-                           },
-                           child: const Text("Edit Profile", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
-                         ),
-                       ),
-                       const SizedBox(width: 15),
-                       Expanded(
-                         child: ElevatedButton.icon(
-                           style: ElevatedButton.styleFrom(
-                             backgroundColor: Colors.red,
-                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                           ),
-
-                           onPressed: () async {
-
-                             Navigator.pushNamed(context, LoginScreen.routeName);
-                           },
-                           icon: const Icon(Icons.exit_to_app, color: Colors.white),
-                           label: const Text("Exit", style: TextStyle(color: Colors.white)),
-                         ),
-                       ),
-                     ],
-                   ),
-                 ),
-                 const SizedBox(height: 30),
-                 Row(
-                   children: [
-                     _buildTabButton(0, "Watch List", Icons.list),
-                     _buildTabButton(1, "History", Icons.folder),
-                   ],
-                 ),
-
-                 Container(height: 1, color: Colors.grey[800]),
-                 Expanded(
-                   child: _selectedTabIndex == 0
-                       ? _buildMoviesGrid(user!.watchList)
-                       : _buildMoviesGrid(user!.history),
-                 ),
-               ],
-             ),
-           ),
-         );
+        if (user == null) {
+          return const Scaffold(
+            backgroundColor: Color(0xFF1E1E1E),
+            body: Center(
+              child: CircularProgressIndicator(
+                color: ColorsApp.primaryGold,
+              ),
+            ),
+          );
         }
-      ),
+
+        return Scaffold(
+          backgroundColor: const Color(0xFF1E1E1E),
+          body: SafeArea(
+            child: Column(
+              children: [
+                const SizedBox(height: 20),
+
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        children: [
+                          CircleAvatar(
+                            radius: 40,
+                            backgroundColor: Colors.grey[800],
+                            backgroundImage:
+                            user.avatar.isNotEmpty &&
+                                user.avatar.contains('assets')
+                                ? AssetImage(user.avatar)
+                                : null,
+                            child:
+                            user.avatar.isEmpty ||
+                                !user.avatar.contains('assets')
+                                ? const Icon(
+                              Icons.person,
+                              size: 40,
+                              color: Colors.white,
+                            )
+                                : null,
+                          ),
+
+                          const SizedBox(height: 10),
+
+                          Text(
+                            user.name ?? '',
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      Row(
+                        children: [
+                          _buildStatColumn(
+                            user.watchList.length.toString(),
+                            "Wish List",
+                          ),
+                          const SizedBox(width: 30),
+                          _buildStatColumn(
+                            user.history.length.toString(),
+                            "History",
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 20),
+
+
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.amber,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder:
+                                    (context) => const UpdateProfileScreen(),
+                              ),
+                            );
+                          },
+                          child: const Text(
+                            "Edit Profile",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
+
+                      const SizedBox(width: 15),
+
+                      Expanded(
+                        child: ElevatedButton.icon(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.red,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          ),
+                          onPressed: () {
+                            Navigator.pushNamed(
+                              context,
+                              LoginScreen.routeName,
+                            );
+                          },
+                          icon: const Icon(
+                            Icons.exit_to_app,
+                            color: Colors.white,
+                          ),
+                          label: const Text(
+                            "Exit",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 30),
+
+
+                Row(
+                  children: [
+                    _buildTabButton(0, "Watch List", Icons.list),
+                    _buildTabButton(1, "History", Icons.folder),
+                  ],
+                ),
+
+                Container(height: 1, color: Colors.grey[800]),
+
+
+                Expanded(
+                  child:
+                  _selectedTabIndex == 0
+                      ? _buildMoviesGrid(user.watchList)
+                      : _buildMoviesGrid(user.history),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 
   Widget _buildStatColumn(String count, String label) {
     return Column(
       children: [
-        Text(count, style: const TextStyle(color: Colors.white, fontSize: 24, fontWeight: FontWeight.bold)),
+        Text(
+          count,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         const SizedBox(height: 5),
-        Text(label, style: const TextStyle(color: Colors.white70, fontSize: 16)),
+        Text(label, style: const TextStyle(color: Colors.white70)),
       ],
     );
   }
 
   Widget _buildTabButton(int index, String title, IconData icon) {
     bool isSelected = _selectedTabIndex == index;
+
     return Expanded(
       child: GestureDetector(
         onTap: () => setState(() => _selectedTabIndex = index),
@@ -171,8 +238,8 @@ class _ProfileScreenState extends State<ProfileTab> {
                 title,
                 style: TextStyle(
                   color: isSelected ? Colors.amber : Colors.white70,
-                  fontSize: 16,
-                  fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                  fontWeight:
+                  isSelected ? FontWeight.bold : FontWeight.normal,
                 ),
               ),
             ],
@@ -181,10 +248,15 @@ class _ProfileScreenState extends State<ProfileTab> {
       ),
     );
   }
-  Widget _buildMoviesGrid(List<String> moviesList) {
+
+  Widget _buildMoviesGrid(List<dynamic> moviesList) {
     if (moviesList.isEmpty) {
       return const Center(
-        child: Icon(Icons.movie_creation_outlined, size: 80, color: Colors.grey),
+        child: Icon(
+          Icons.movie_creation_outlined,
+          size: 80,
+          color: Colors.grey,
+        ),
       );
     }
 
@@ -198,19 +270,11 @@ class _ProfileScreenState extends State<ProfileTab> {
       ),
       itemCount: moviesList.length,
       itemBuilder: (context, index) {
-        return ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: Container(
-            color: Colors.grey[800],
-            child: Center(
-              child: Text(
-                "Movie ID: ${moviesList[index]}",
-                style: const TextStyle(color: Colors.white, fontSize: 10),
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ),
-        );
+        return CardItem(
+            id: moviesList[index]['id'],
+            width: 0.37,
+            rating:(moviesList[index]['rating'] ?? 0).toDouble(),
+            imageUrl: moviesList[index]['poster']);
       },
     );
   }
