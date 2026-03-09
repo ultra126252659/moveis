@@ -125,8 +125,8 @@ class _ProfileScreenState extends State<ProfileTab> {
                  Container(height: 1, color: Colors.grey[800]),
                  Expanded(
                    child: _selectedTabIndex == 0
-                       ? _buildMoviesGrid(user!.watchList)
-                       : _buildMoviesGrid(user!.history),
+                       ? _buildMoviesGrid(user.watchList)
+                       : _buildMoviesGrid(user.history),
                  ),
                ],
              ),
@@ -181,7 +181,7 @@ class _ProfileScreenState extends State<ProfileTab> {
       ),
     );
   }
-  Widget _buildMoviesGrid(List<String> moviesList) {
+  Widget _buildMoviesGrid(List<dynamic> moviesList) {
     if (moviesList.isEmpty) {
       return const Center(
         child: Icon(Icons.movie_creation_outlined, size: 80, color: Colors.grey),
