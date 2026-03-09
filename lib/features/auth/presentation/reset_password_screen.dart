@@ -1,4 +1,5 @@
 
+import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:moves_final_project/Widgets/AppDecorations.dart';
@@ -9,7 +10,7 @@ import 'package:moves_final_project/core/resources/firebase_functions.dart';
 import 'package:moves_final_project/core/resources/image&icon.dart';
 
 
-
+@RoutePage()
 class ResetPasswordScreen extends StatelessWidget {
   static const String routeName = "ResetPassword";
 
@@ -48,8 +49,8 @@ class ResetPasswordScreen extends StatelessWidget {
 
               Image.asset(
                 ImageApp.imageForgotpassword,
-                height: 250,
-                fit: BoxFit.contain,
+                height: 450,
+                fit: BoxFit.cover,
               ),
 
               const SizedBox(height: 40),
@@ -80,7 +81,7 @@ class ResetPasswordScreen extends StatelessWidget {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor:ColorsApp.background,
+                  backgroundColor:ColorsApp.primaryGold,
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),

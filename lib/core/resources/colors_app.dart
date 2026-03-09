@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 class ColorsApp {
   // Backgrounds
   static const Color background = Color(0xFF121312);
-  static const Color surface = Color(0xFF121212);
+  static const Color surface = Color(0xff282A28);
 
   //transparent
   static const Color transparent = Color(0x00000000);

@@ -1,19 +1,23 @@
 
+import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:firebase_auth/firebase_auth.dart' hide AuthProvider;
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:moves_final_project/core/resources/app_string.dart';
+import 'package:moves_final_project/core/resources/auto_route.gr.dart';
 import 'package:moves_final_project/core/resources/colors_app.dart';
 import 'package:moves_final_project/core/resources/firebase_functions.dart';
 import 'package:moves_final_project/core/resources/image&icon.dart';
 import 'package:moves_final_project/features/auth/presentation/register_screen.dart';
 import 'package:moves_final_project/features/auth/presentation/reset_password_screen.dart';
-import 'package:moves_final_project/features/home/presentation/bloc/UserProvider.dart';
+import 'package:moves_final_project/features/home/presentation/provider/UserProvider.dart';
 import 'package:moves_final_project/features/auth/providers/auth_provider.dart';
 import 'package:moves_final_project/features/home/presentation/screen/home_screen.dart';
 import 'package:provider/provider.dart';
 
 
-
+@RoutePage()
 class LoginScreen extends StatefulWidget {
   static const String routeName = "Login";
 
@@ -55,7 +59,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
                   TextFormField(
                     controller: emailController,
-                    style: const TextStyle(color:ColorsApp.background),
+                    style: const TextStyle(color:ColorsApp.textPrimary),
                     decoration: InputDecoration(
                       hintText: AppString.hintTextEmail,
                       hintStyle: GoogleFonts.poppins(
@@ -66,7 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       fillColor: const Color(0xFF282A28),
                       prefixIcon: Padding(
                         padding: const EdgeInsets.all(12.0),
-                        child: Image.asset(ImageApp.imageEmail, width: 20, color:ColorsApp.background),
+                        child: Image.asset(ImageApp.imageEmail, width: 20, color:ColorsApp.textPrimary),
                       ),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(16),
@@ -80,7 +84,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   TextFormField(
                     controller: passwordController,
                     obscureText: !isPasswordVisible,
-                    style: const TextStyle(color: ColorsApp.background),
+                    style: const TextStyle(color: ColorsApp.textPrimary),
                     decoration: InputDecoration(
                       hintText: AppString.hintTextPassword,
                       hintStyle: GoogleFonts.poppins(
@@ -118,10 +122,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     alignment: Alignment.centerRight,
                     child: TextButton(
                       onPressed: () {
-                        Navigator.pushNamed(
-                          context,
-                          ResetPasswordScreen.routeName,
-                        );
+                        context.pushRoute(ResetPasswordRoute());
                       },
                       child: Text(
                         AppString.hintTextForgetPassword,
@@ -144,11 +145,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         onSuccess: () {
 
                           authProvider.initUser();
+
                           Provider.of<UserProvider>(context, listen: false).loadUserData();
-                         Navigator.pushNamed(
-                            context,
-                           HomeScreen.routeName,
-                          );
+                       context.pushRoute(HomeRoute());
+
                         },
                         onError: (message) {
                           ScaffoldMessenger.of(context).showSnackBar(
@@ -197,11 +197,8 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(
-                            context,
-                            RegisterScreen.routeName,
-                          );
-                        },
+                          context.pushRoute(
+                            RegisterRoute());},
                         child: Text(
                           AppString.textCreateOne,
                           style: GoogleFonts.poppins(
@@ -219,7 +216,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: [
                       Expanded(
                         child: Divider(
-                          color:ColorsApp.background,
+                          color:ColorsApp.primaryGold,
                           thickness: 1,
                           endIndent: 16,
                           indent: 32,
@@ -245,10 +242,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(height: 24),
 
-                  // زر تسجيل الدخول باستخدام جوجل
+
                   ElevatedButton.icon(
-                    onPressed: () {
-                      // كود جوجل هنا
+                    onPressed: ()  async {
+                       await FirebaseFunctions().signInWithGoogle();
+
                     },
                     icon: Image.asset(ImageApp.imagegoogle, height: 24),
                     label: Text(

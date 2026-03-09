@@ -22,6 +22,7 @@ class IconApp {
 }
 class ImageApp {
   static String bgHome = "${PathImageAndIconApp.pathImage}/bg.jpg";
+//<<<<<<< HEAD
   static String play = "${PathImageAndIconApp.pathImage}/play_mvoie.png";
   static String byDetails = "${PathImageAndIconApp.pathImage}/byDetails.jpg";
   static String imagesplash  =  "assets/images/Group 44.png";
@@ -37,4 +38,8 @@ class ImageApp {
   static String imagePassword= "assets/images/Password.png";
   static String imagegoogle= "assets/images/google.png";
   static String imageForgotpassword= "assets/images/Forgot password-bro 1.png";
+//=======
+  static String empty = "${PathImageAndIconApp.pathImage}/empty.png";
+
+//>>>>>>> devAlaa
 }

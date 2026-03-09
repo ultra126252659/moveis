@@ -7,8 +7,7 @@ import 'package:moves_final_project/core/resources/image&icon.dart';
 import 'package:moves_final_project/core/resources/style_app.dart';
 import 'package:moves_final_project/features/home/presentation/bloc/home_bloc.dart';
 import 'package:moves_final_project/features/home/presentation/bloc/home_event.dart';
-
-import '../../../../core/resources/auto_route.dart';
+import 'package:moves_final_project/features/home/presentation/widget/card_item.dart';
 class CourserScroll extends StatelessWidget {
 
   final List<dynamic> movies;
@@ -27,7 +26,7 @@ class CourserScroll extends StatelessWidget {
 
     return CarouselSlider(
       options: CarouselOptions(
-        autoPlay: false,
+        autoPlay: true,
         enlargeCenterPage: true,
 
         height: 350.0,
@@ -42,55 +41,17 @@ class CourserScroll extends StatelessWidget {
       items: movies.map((movie) {
         return Builder(
           builder: (BuildContext context) {
-            return GestureDetector(
-              onTap: (){
-
-              },
-              child: Container(
-                  width: MediaQuery.of(context).size.width * 0.6,
-                  margin: const EdgeInsets.symmetric(horizontal: 5.0),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20.0),
-                  ),
-                  child: Stack(
-                    children: [
-
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(20.0),
-                        child: Image.network(
-                          movie.mediumCoverImage ?? "", // رابط الصورة من الـ API
-                          fit: BoxFit.cover,
-                          height: double.infinity,
-                          width: double.infinity,
-                          errorBuilder: (context, error, stackTrace) =>
-                              Image.asset(ImageApp.bgHome, fit: BoxFit.cover), // صورة احتياطية
-                        ),
-                      ),
-
-
-                      Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                          height: 30,
-                          width: 65,
-                          decoration: BoxDecoration(
-                            color: ColorsApp.shadow.withOpacity(0.5),
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "${movie.rating ?? 0.0}", // التقييم الحقيقي
-                                style: StyleApp.smText,
-                              ),
-                              const SizedBox(width: 4),
-                              const Icon(Icons.star, color: ColorsApp.primaryGold, size: 16),
-                            ],
-                          )
-                      )
-                    ],
-                  )
-              ),
+            return Container(
+                width: MediaQuery.of(context).size.width * 0.6,
+                margin: const EdgeInsets.symmetric(horizontal: 5.0),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                child: CardItem(
+                    id: movie.id ?? 0,
+                    width: 0.37,
+                    rating: movie.rating?.toDouble() ?? 0.0,
+                    imageUrl: movie.mediumCoverImage ?? "")
             );
           },
         );

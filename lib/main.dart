@@ -1,57 +1,32 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:moves_final_project/features/auth/presentation/register_screen.dart';
-import 'package:moves_final_project/features/onbording/presentation/Screen/Onboarding.dart';
-import 'package:moves_final_project/features/onbording/presentation/Screen/splash_Screen.dart';
+import 'package:moves_final_project/core/resources/auto_route.dart';
+import 'package:moves_final_project/di.dart';
+import 'package:moves_final_project/features/auth/providers/auth_provider.dart';
+import 'package:moves_final_project/features/details/presentation/screen/movie_details_screen.dart';
+import 'package:moves_final_project/features/home/presentation/screen/home_screen.dart';
+import 'package:moves_final_project/firebase_options.dart';
 import 'package:provider/provider.dart';
 
-import 'di.dart';
-import 'features/auth/presentation/login_screen.dart';
-import 'features/auth/presentation/reset_password_screen.dart';
-import 'features/home/presentation/bloc/UserProvider.dart';
-import 'features/auth/providers/auth_provider.dart';
-import 'features/home/presentation/bloc/home_bloc.dart';
-import 'features/home/presentation/bloc/home_state.dart';
-import 'features/home/presentation/screen/home_screen.dart';
-import 'firebase_options.dart';
 
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-
-
-Future<void> main() async {
+void main() async{
   WidgetsFlutterBinding.ensureInitialized();
-
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   configureDependencies();
-
   runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (context) => AuthProvider()),
-        ChangeNotifierProvider(create: (context) => UserProvider()),
-
-      ],
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider(create: (context) => getIt<HomeBloc>()),
-        ],
-        child: BlocBuilder<HomeBloc, HomeState>(
-          builder: (context, state) {
-            return  MyApp();
-          },
-        ),
-      ),
-    ),
-  );
+      MultiProvider(
+          providers: [
+            ChangeNotifierProvider(create: (_) => AuthProvider()),
+          ],
+          child:MyApp()));
 }
 
 class MyApp extends StatelessWidget {
-   MyApp({super.key});
-
+    MyApp({super.key});
+   final _appRouter = AppRouter();
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -59,19 +34,9 @@ class MyApp extends StatelessWidget {
         minTextAdapt: true,
         splitScreenMode: true,
       builder: (context,child){
-          return MaterialApp(
+          return MaterialApp.router(
             debugShowCheckedModeBanner: false,
-            initialRoute: Splashscreen.routeName,
-
-            routes: {
-              Splashscreen.routeName: (c) => Splashscreen(),
-              MoviesIntroScreen.routeName: (c) => MoviesIntroScreen(),
-              LoginScreen.routeName: (c) => LoginScreen(),
-              RegisterScreen.routeName: (c) => RegisterScreen(),
-              ResetPasswordScreen.routeName: (c) => ResetPasswordScreen(),
-              HomeScreen.routeName: (c) => HomeScreen(),
-            },
-
+            routerConfig: _appRouter.config(),
           );
       },
     );
