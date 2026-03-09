@@ -77,7 +77,6 @@ class FirebaseFunctions {
       }
     }
   }
-
   static Future<void> deleteAccount({
     required Function onSuccess,
     required Function onError,
@@ -141,6 +140,31 @@ class FirebaseFunctions {
     } catch (e) {
       print(" General Error: $e");
       onError(e.toString());
+    }
+  }
+  static Future<void> addToWatchList(Map<String, dynamic> movieData) async {
+    try {
+      User? currentUser = FirebaseAuth.instance.currentUser;
+      if (currentUser == null) return;
+      var docRef = FirebaseFirestore.instance.collection('Users').doc(currentUser.uid);
+      await docRef.set({
+        'watchList': FieldValue.arrayUnion([movieData])
+      }, SetOptions(merge: true));
+    } catch (e) {
+      print(" Error: $e");
+    }
+  }
+
+  static Future<void> addToHistory(Map<String, dynamic> movieData) async {
+    try {
+      User? currentUser = FirebaseAuth.instance.currentUser;
+      if (currentUser == null) return;
+      var docRef = FirebaseFirestore.instance.collection('Users').doc(currentUser.uid);
+      await docRef.set({
+        'history': FieldValue.arrayUnion([movieData])
+      }, SetOptions(merge: true));
+    } catch (e) {
+      print(" Error adding to History: $e");
     }
   }
 }

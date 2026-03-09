@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:moves_final_project/core/resources/firebase_functions.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:moves_final_project/features/auth/presentation/login_screen.dart';
 import 'package:moves_final_project/features/home/presentation/bloc/UserProvider.dart';
 import 'package:moves_final_project/features/home/presentation/widget/Edit%20profile.dart';
 import 'package:provider/provider.dart';
-
 
 class ProfileTab extends StatefulWidget {
   const ProfileTab({Key? key}) : super(key: key);
@@ -26,10 +25,12 @@ class _ProfileScreenState extends State<ProfileTab> {
       }
     });
   }
+
   @override
   Widget build(BuildContext context) {
     var userProvider = Provider.of<UserProvider>(context);
     var user = userProvider.user;
+
     if (user == null) {
       return const Scaffold(
         backgroundColor: Color(0xFF1E1E1E),
@@ -69,34 +70,33 @@ class _ProfileScreenState extends State<ProfileTab> {
                   ),
                   Row(
                     children: [
-                      _buildStatColumn(user.watchList.length.toString(), "Wish List"),
+                      _buildStatColumn((user.watchList.length).toString(), "Wish List"),
                       const SizedBox(width: 30),
-                      _buildStatColumn(user.history.length.toString(), "History"),
+                      _buildStatColumn((user.history.length).toString(), "History"),
                     ],
                   ),
                 ],
               ),
             ),
             const SizedBox(height: 20),
-
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
                 children: [
                   Expanded(
                     child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.amber,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-              ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const UpdateProfileScreen()),
-                );
-                },
-               child: const Text("Edit Profile", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
-                ),
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.amber,
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const UpdateProfileScreen()),
+                        );
+                      },
+                      child: const Text("Edit Profile", style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold)),
+                    ),
                   ),
                   const SizedBox(width: 15),
                   Expanded(
@@ -105,10 +105,9 @@ class _ProfileScreenState extends State<ProfileTab> {
                         backgroundColor: Colors.red,
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                       ),
-
                       onPressed: () async {
-
-                       Navigator.pushNamed(context, LoginScreen.routeName);
+                        await FirebaseAuth.instance.signOut();
+                        Navigator.pushNamedAndRemoveUntil(context, LoginScreen.routeName, (route) => false);
                       },
                       icon: const Icon(Icons.exit_to_app, color: Colors.white),
                       label: const Text("Exit", style: TextStyle(color: Colors.white)),
@@ -124,7 +123,6 @@ class _ProfileScreenState extends State<ProfileTab> {
                 _buildTabButton(1, "History", Icons.folder),
               ],
             ),
-
             Container(height: 1, color: Colors.grey[800]),
             Expanded(
               child: _selectedTabIndex == 0
@@ -156,10 +154,7 @@ class _ProfileScreenState extends State<ProfileTab> {
           padding: const EdgeInsets.symmetric(vertical: 15),
           decoration: BoxDecoration(
             border: Border(
-              bottom: BorderSide(
-                color: isSelected ? Colors.amber : Colors.transparent,
-                width: 3,
-              ),
+              bottom: BorderSide(color: isSelected ? Colors.amber : Colors.transparent, width: 3),
             ),
           ),
           child: Row(
@@ -167,48 +162,36 @@ class _ProfileScreenState extends State<ProfileTab> {
             children: [
               Icon(icon, color: isSelected ? Colors.amber : Colors.white70),
               const SizedBox(width: 8),
-              Text(
-                title,
-                style: TextStyle(
-                  color: isSelected ? Colors.amber : Colors.white70,
-                  fontSize: 16,
-                  fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                ),
-              ),
+              Text(title, style: TextStyle(color: isSelected ? Colors.amber : Colors.white70, fontSize: 16, fontWeight: isSelected ? FontWeight.bold : FontWeight.normal)),
             ],
           ),
         ),
       ),
     );
   }
-  Widget _buildMoviesGrid(List<String> moviesList) {
-    if (moviesList.isEmpty) {
-      return const Center(
-        child: Icon(Icons.movie_creation_outlined, size: 80, color: Colors.grey),
-      );
-    }
 
+  Widget _buildMoviesGrid(List<dynamic> moviesList) {
+    if (moviesList.isEmpty) {
+      return const Center(child: Icon(Icons.movie_creation_outlined, size: 80, color: Colors.grey));
+    }
     return GridView.builder(
       padding: const EdgeInsets.all(10),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 3,
-        childAspectRatio: 0.7,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
+        crossAxisCount: 3, childAspectRatio: 0.7, crossAxisSpacing: 10, mainAxisSpacing: 10,
       ),
       itemCount: moviesList.length,
       itemBuilder: (context, index) {
+        var movie = moviesList[index];
         return ClipRRect(
           borderRadius: BorderRadius.circular(10),
           child: Container(
             color: Colors.grey[800],
-            child: Center(
-              child: Text(
-                "Movie ID: ${moviesList[index]}",
-                style: const TextStyle(color: Colors.white, fontSize: 10),
-                textAlign: TextAlign.center,
-              ),
-            ),
+            child: movie['image'] != null && movie['image'].toString().isNotEmpty
+                ? Image.network(
+              movie['image'], fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) => const Icon(Icons.broken_image, color: Colors.white54, size: 40),
+            )
+                : const Center(child: Icon(Icons.image_not_supported, color: Colors.white)),
           ),
         );
       },

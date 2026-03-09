@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moves_final_project/core/resources/app_string.dart';
 import 'package:moves_final_project/core/resources/colors_app.dart';
+import 'package:moves_final_project/core/resources/firebase_functions.dart';
+import 'package:moves_final_project/features/home/presentation/bloc/UserProvider.dart';
+import 'package:provider/provider.dart';
 import '../../../../core/resources/image&icon.dart';
 import '../../../../core/resources/style_app.dart';
 import '../widgets/cusotm_btn.dart';
@@ -11,10 +14,13 @@ import '../widgets/screen_shot_list.dart';
 import '../widgets/similar_gridView.dart';
 
 class MovieDetailsScreen extends StatelessWidget {
-  const  MovieDetailsScreen({super.key});
-
+    MovieDetailsScreen({super.key,required this.movie});
+  final dynamic movie;
   @override
   Widget build(BuildContext context) {
+    var userProvider = Provider.of<UserProvider>(context);
+    bool isWatched = userProvider.user!.history.any((element) => element['id'].toString() == movie.id.toString());
+    bool isSaved = userProvider.user!.watchList.any((element) => element['id'].toString() == movie.id.toString());
 
     return Scaffold(
         backgroundColor: ColorsApp.background,
@@ -23,10 +29,50 @@ class MovieDetailsScreen extends StatelessWidget {
           backgroundColor: Colors.transparent,
           automaticallyImplyActions: false,
           leadingWidth: 50,
-automaticallyImplyLeading: false,
-          title: GestureDetector(onTap: (){},
+         automaticallyImplyLeading: false,
+
+          title: GestureDetector(onTap: (){
+            Navigator.pop(context);
+          },
               child: ImageIcon(AssetImage(IconApp.arrowBack),color: Colors.white,size: 24,)),
-          actions: [ImageIcon(AssetImage(IconApp.saveIc),color: Colors.white,),SizedBox(width: 15,)],),
+          actions: [
+            IconButton(
+              onPressed: () async {
+                if (isSaved) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("Movie is already saved! ", style: TextStyle(color: Colors.white)),
+                      backgroundColor: Colors.orange,
+                    ),
+                  );
+                  return;
+                }
+
+                Map<String, dynamic> movieData = {
+                  "id": movie.id,
+                  "title": movie.title,
+                  "image": movie.mediumCoverImage,
+                };
+
+                await FirebaseFunctions.addToHistory(movieData);
+
+                Provider.of<UserProvider>(context, listen: false).addMovieToHistoryLocally(movieData);
+
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(
+                      content: Text("Added to History", style: TextStyle(color: Colors.white)),
+                      backgroundColor: Colors.blue
+                  ),
+                );
+              },
+              icon: ImageIcon(
+                AssetImage(IconApp.saveIc),
+                color: isSaved ? Colors.amber : ColorsApp.textPrimary,
+                size: 30,
+              ),
+            ),
+
+            SizedBox(width: 15,)],),
         body: SingleChildScrollView(child: Column(
 
          crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -54,12 +100,67 @@ automaticallyImplyLeading: false,
                   right: 16,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: Text(textAlign: TextAlign.center,'2021',style: StyleApp.lgText,),
+                    child: Text(textAlign: TextAlign.center,
+                      '2021',
+                      style: StyleApp.lgText,),
                   )),
-            ],
-          ),
-            CustomBtn(text: 'watch', onPressed: () {  },),
-          SizedBox(height: 15.h,),
+             ],
+           ),
+            CustomBtn(text: 'watch', onPressed: () {
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: isWatched ? Colors.green : const Color(0xFFE50914),
+                  padding: const EdgeInsets.symmetric(vertical: 15),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                ),
+                onPressed: () async {
+                  if (isWatched) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("You have already watched this movie! ", style: TextStyle(color: Colors.white)),
+                        backgroundColor: Colors.orange,
+                      ),
+                    );
+                    return;
+                  }
+
+                  Map<String, dynamic> movieData = {
+                    "id": movie.id,
+                    "title": movie.title,
+                    "image": movie.mediumCoverImage,
+                  };
+
+                  await FirebaseFunctions.addToHistory(movieData);
+
+                  Provider.of<UserProvider>(context, listen: false).addMovieToHistoryLocally(movieData);
+
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                        content: Text("Added to History successfully! ", style: TextStyle(color: Colors.white)),
+                        backgroundColor: Colors.blue
+                    ),
+                  );
+                },
+                child: Center(
+                  child: Text(
+                    isWatched ? "Watched ✓" : "Watch",
+                    style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold
+                    ),
+                  ),
+                ),
+              );
+
+
+
+
+
+            },),
+           SizedBox(height: 15.h,),
             ChipsListCustom(),
 
             Padding(

@@ -23,7 +23,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // 1. تهيئة فايربيز
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );

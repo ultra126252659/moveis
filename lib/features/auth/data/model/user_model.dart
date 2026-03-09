@@ -7,8 +7,8 @@ class UserModel {
   String avatar;
   String phone;
 
-  List<String> watchList;
-  List<String> history;
+  List<dynamic> watchList;
+  List<dynamic> history;
 
   UserModel({
     this.id = "",
@@ -18,7 +18,6 @@ class UserModel {
     required this.nid,
     required this.avatar,
     required this.phone,
-    // إعطاء قيمة افتراضية عشان ميحصلش خطأ
     this.watchList = const [],
     this.history = const [],
   });
@@ -31,10 +30,9 @@ class UserModel {
     nid: json['nid'] ?? "",
     isVerified: json['isVerified'] ?? false,
     avatar: json['avatar'] ?? "",
-    phone: json['phone'] ?? "", // دي كانت مكتوبة json['avatar'] بالغلط فصلحناها
-
-    watchList: List<String>.from(json['watchList'] ?? []),
-    history: List<String>.from(json['history'] ?? []),
+    phone: json['phone'] ?? "",
+    watchList: json['watchList'] ?? [],
+    history: json['history'] ?? [],
   );
 
   Map<String, dynamic> toJson() {
@@ -46,7 +44,6 @@ class UserModel {
       "isVerified": isVerified,
       "avatar": avatar,
       "phone": phone,
-      // رفع البيانات لفايربيز
       "watchList": watchList,
       "history": history,
     };
