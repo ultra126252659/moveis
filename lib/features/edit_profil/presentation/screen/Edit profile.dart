@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:moves_final_project/core/resources/colors_app.dart';
@@ -70,7 +71,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                     onPressed: () => Navigator.pop(context),
                   ),
                   title: Text(
-                    "Edit Profile",
+                    "ext Edit Profile".tr(),
                     style: GoogleFonts.poppins(color: ColorsApp.primaryGold,
                         fontWeight: FontWeight.w600),
                   ),
@@ -122,7 +123,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                       TextFormField(
                         controller: nameController,
                         style: const TextStyle(color: Colors.white),
-                        decoration: AppDecorations.customInputDecoration( hint: 'Name', icon: Icons.person),
+                        decoration: AppDecorations.customInputDecoration( hint: 'textName'.tr(), icon: Icons.person),
                       ),
                       const SizedBox(height: 16),
 
@@ -130,7 +131,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                         controller: phoneController,
                         keyboardType: TextInputType.phone,
                         style: const TextStyle(color: Colors.white),
-                        decoration:  AppDecorations.customInputDecoration(hint: "Phone Number", icon:Icons.phone),
+                        decoration:  AppDecorations.customInputDecoration(hint: "hintTextPhoneNumber".tr(), icon:Icons.phone),
                       ),
                       const SizedBox(height: 10),
                       Align(
@@ -145,7 +146,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                                 await FirebaseFunctions.resetPassword(userEmail);
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   SnackBar(
-                                    content: Text("Password reset link sent to: $userEmail", style: const TextStyle(color: Colors.white)),
+                                    content: Text("text Password reset link sent to: $userEmail".tr(), style: const TextStyle(color: Colors.white)),
                                     backgroundColor: Colors.green,
                                   ),
                                 );
@@ -203,7 +204,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                           padding: const EdgeInsets.symmetric(vertical: 16),
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                         ),
-                        child: const Text("Delete Account", style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
+                        child: Text("textDelete Account".tr(), style: const TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
                       ),
                       const SizedBox(height: 12),
                       ElevatedButton(
@@ -213,7 +214,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                           padding: const EdgeInsets.symmetric(vertical: 16),
                           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                         ),
-                        child: Text("Update Data", style: GoogleFonts.poppins(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold)),
+                        child: Text("textUpdate Data".tr(), style: GoogleFonts.poppins(color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold)),
                       ),
                       const SizedBox(height: 20),
                     ],
@@ -230,11 +231,9 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
     currentUser.phone = phoneController.text;
     currentUser.avatar = _selectedAvatarPath;
 
-    // بنحدث الداتا محلياً في ثانية
     userProvider.refreshUserLocally();
     Navigator.pop(context);
 
-    // الرفع لفايربيز في الخلفية
     FirebaseFunctions.updateUserData(
       currentUser,
       onSuccess: () {},

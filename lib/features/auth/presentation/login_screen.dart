@@ -1,8 +1,10 @@
 
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart' hide AuthProvider;
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:moves_final_project/core/resources/app_string.dart';
 import 'package:moves_final_project/core/resources/auto_route.gr.dart';
@@ -61,7 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     controller: emailController,
                     style: const TextStyle(color:ColorsApp.textPrimary),
                     decoration: InputDecoration(
-                      hintText: AppString.hintTextEmail,
+                      hintText:"hintTextEmail".tr(),
                       hintStyle: GoogleFonts.poppins(
                         fontSize: 14,
                         color: Colors.white54,
@@ -86,7 +88,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     obscureText: !isPasswordVisible,
                     style: const TextStyle(color: ColorsApp.textPrimary),
                     decoration: InputDecoration(
-                      hintText: AppString.hintTextPassword,
+                      hintText:"hintTextPassword".tr(),
                       hintStyle: GoogleFonts.poppins(
                         fontSize: 14,
                         color: Colors.white54,
@@ -125,7 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         context.pushRoute(ResetPasswordRoute());
                       },
                       child: Text(
-                        AppString.hintTextForgetPassword,
+                       "hintTextForgetPassword".tr(),
                         style: GoogleFonts.poppins(
                           color: ColorsApp.primaryGold,
                           fontSize: 14,
@@ -175,7 +177,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                     child: Text(
-                      AppString.hintTextLogin,
+                     "hintTextLogin".tr(),
                       style: GoogleFonts.poppins(
                         color: const Color(0xFF121212),
                         fontSize: 18,
@@ -189,7 +191,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        AppString.textAccount,
+                        "textAccount".tr(),
                         style: GoogleFonts.poppins(
                           fontSize: 14,
                           color: Colors.white,
@@ -200,7 +202,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           context.pushRoute(
                             RegisterRoute());},
                         child: Text(
-                          AppString.textCreateOne,
+                         "textCreateOne".tr(),
                           style: GoogleFonts.poppins(
                             fontSize: 14,
                             fontWeight: FontWeight.bold,
@@ -250,7 +252,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     },
                     icon: Image.asset(ImageApp.imagegoogle, height: 24),
                     label: Text(
-                      AppString. textLoginWithGoogle,
+                      "textLoginWithGoogle".tr(),
                       style: GoogleFonts.poppins(
                         color: const Color(0xFF121212),
                         fontSize: 16,
@@ -269,6 +271,72 @@ class _LoginScreenState extends State<LoginScreen> {
 
 
                   const SizedBox(height: 20),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 100.w,
+                        height: 45.h,
+                        padding: EdgeInsets.all(2.r),
+                        decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.circular(30.r),
+                          border: Border.all(
+                            color: Colors.amber,
+                            width: 2.w,
+                          ),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                context.setLocale(const Locale("en", "US"));
+                              },
+                              child: AnimatedContainer(
+                                duration: const Duration(milliseconds: 300),
+                                width: 40.w,
+                                height: 40.h,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: context.locale.languageCode == "en"
+                                      ? Colors.amber
+                                      : Colors.transparent,
+                                ),
+                                padding: EdgeInsets.all(2.r),
+                                child: const CircleAvatar(
+                                  backgroundImage: AssetImage('assets/images/En.png'),
+                                  backgroundColor: Colors.transparent,
+                                ),
+                              ),
+                            ),
+
+                            GestureDetector(
+                              onTap: () {
+                                context.setLocale(const Locale("ar", "EG"));
+                              },
+                              child: AnimatedContainer(
+                                duration: const Duration(milliseconds: 300),
+                                width: 40.w,
+                                height: 40.h,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: context.locale.languageCode == "ar"
+                                      ? Colors.amber
+                                      : Colors.transparent,
+                                ),
+                                padding: EdgeInsets.all(2.r),
+                                child: const CircleAvatar(
+                                  backgroundImage: AssetImage('assets/images/EG.png'),
+                                  backgroundColor: Colors.transparent,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  )
                 ],
               ),
             ),

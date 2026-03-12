@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,19 +13,28 @@ import 'package:provider/provider.dart';
 import 'features/home/presentation/provider/UserProvider.dart';
 
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await EasyLocalization.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   configureDependencies();
   runApp(
-      MultiProvider(
-          providers: [
-            ChangeNotifierProvider(create: (_) => UserProvider()),
-            ChangeNotifierProvider(create: (_) => AuthProvider()),
-          ],
-          child:MyApp()));
+    EasyLocalization(
+      supportedLocales: const [Locale('en', 'US'), Locale('ar', 'EG')],
+      path: 'assets/translations',
+      fallbackLocale: const Locale('en', 'US'),
+
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => AuthProvider()),
+          ChangeNotifierProvider(create: (_) => UserProvider()),
+        ],
+        child:  MyApp(),
+      ),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -38,6 +48,9 @@ class MyApp extends StatelessWidget {
         splitScreenMode: true,
       builder: (context,child){
           return MaterialApp.router(
+            localizationsDelegates: context.localizationDelegates,
+            supportedLocales: context.supportedLocales,
+            locale: context.locale,
             debugShowCheckedModeBanner: false,
             routerConfig: _appRouter.config(),
           );

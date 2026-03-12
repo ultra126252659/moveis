@@ -1,5 +1,6 @@
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -81,7 +82,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       Expanded(
                         child: Center(
                           child: Text(
-                            AppString.textRegister,
+                           "textRegister".tr(),
                             style: GoogleFonts.poppins(
                               fontSize: 20,
                               fontWeight: FontWeight.w600,
@@ -141,7 +142,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   const SizedBox(height: 12),
                   Center(
                     child: Text(
-                      AppString.textAvatar,
+                    "textAvatar".tr(),
                       style: GoogleFonts.poppins(
                         fontSize: 16,
                         color: Colors.white,
@@ -161,7 +162,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       return null;
                     },
                     decoration:AppDecorations.customInputDecoration(
-                      hintText: "Name",
+                      hintText: "textName".tr(),
                       iconWidget: const Icon(
                           Icons.badge_outlined, color: Colors.white54),
                     ),
@@ -182,7 +183,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       return null;
                     },
                     decoration: AppDecorations.customInputDecoration(
-                      hintText: "Email",
+                      hintText: "hintTextEmail".tr(),
                       iconWidget: Image.asset(
                           "assets/images/Email.png", width: 20,
                           color: Colors.white54),
@@ -201,7 +202,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       return null;
                     },
                     decoration: AppDecorations.customInputDecoration(
-                      hintText: "Password",
+                      hintText: "hintTextPassword".tr(),
                       iconWidget: Image.asset(
                           "assets/images/Password.png", width: 20,
                           color: Colors.white54),
@@ -231,7 +232,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       return null;
                     },
                     decoration: AppDecorations.customInputDecoration(
-                      hintText: "Confirm Password",
+                      hintText: "hintTextConfirm Password".tr(),
                       iconWidget: Image.asset(
                           "assets/images/Password.png", width: 20,
                           color: Colors.white54),
@@ -263,7 +264,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       return null;
                     },
                     decoration: AppDecorations.customInputDecoration(
-                      hintText: "Phone Number",
+                      hintText: "hintTextPhoneNumber".tr(),
                       iconWidget: const Icon(
                           Icons.phone, color: Colors.white54),
                     ),
@@ -306,7 +307,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       ),
                     ),
                     child: Text(
-                      "Create Account",
+                      "textCreateAccount".tr(),
                       style: GoogleFonts.poppins(
                         color: const Color(0xFF121212),
                         fontSize: 18.sp,
@@ -320,7 +321,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        "Already Have Account ? ",
+                        "TextAlready Have Account ? ".tr(),
                         style: GoogleFonts.poppins(
                           fontSize: 14.sp,
                           color: Colors.white,
@@ -331,7 +332,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           context.pushRoute(LoginRoute());
                         },
                         child: Text(
-                          "Login",
+                          "hintTextLogin".tr(),
                           style: GoogleFonts.poppins(
                             fontSize: 14.sp,
                             fontWeight: FontWeight.bold,
@@ -343,46 +344,71 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                   const SizedBox(height: 30),
 
-                  Center(
-                    child: Container(
-                      padding: const EdgeInsets.all(4),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(30),
-                        border: Border.all(color: Color(0xFFF6BD00), width: 2),
-                      ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          InkWell(
-                            onTap: () {},
-                            child: Container(
-                              padding: const EdgeInsets.all(4),
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Color(0xFFF6BD00),
-                              ),
-                              child: Image.asset(
-                                  "assets/images/En.png", width: 24,
-                                  height: 24),
-                            ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 100.w,
+                        height: 45.h,
+                        padding: EdgeInsets.all(2.r),
+                        decoration: BoxDecoration(
+                          color: Colors.black,
+                          borderRadius: BorderRadius.circular(30.r),
+                          border: Border.all(
+                            color: Colors.amber,
+                            width: 2.w,
                           ),
-                          const SizedBox(width: 8),
-                          InkWell(
-                            onTap: () {},
-                            child: Container(
-                              padding: const EdgeInsets.all(4),
-                              decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.transparent,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                context.setLocale(const Locale("en", "US"));
+                              },
+                              child: AnimatedContainer(
+                                duration: const Duration(milliseconds: 300),
+                                width: 40.w,
+                                height: 40.h,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: context.locale.languageCode == "en"
+                                      ? Colors.amber
+                                      : Colors.transparent,
+                                ),
+                                padding: EdgeInsets.all(2.r),
+                                child: const CircleAvatar(
+                                  backgroundImage: AssetImage('assets/images/En.png'),
+                                  backgroundColor: Colors.transparent,
+                                ),
                               ),
-                              child: Image.asset(
-                                  "assets/images/EG.png", width: 24,
-                                  height: 24),
                             ),
-                          ),
-                        ],
+
+                            GestureDetector(
+                              onTap: () {
+                                context.setLocale(const Locale("ar", "EG"));
+                              },
+                              child: AnimatedContainer(
+                                duration: const Duration(milliseconds: 300),
+                                width: 40.w,
+                                height: 40.h,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: context.locale.languageCode == "ar"
+                                      ? Colors.amber
+                                      : Colors.transparent,
+                                ),
+                                padding: EdgeInsets.all(2.r),
+                                child: const CircleAvatar(
+                                  backgroundImage: AssetImage('assets/images/EG.png'),
+                                  backgroundColor: Colors.transparent,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
+                    ],
                   ),
                   const SizedBox(height: 20),
                 ],

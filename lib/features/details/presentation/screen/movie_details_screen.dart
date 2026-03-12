@@ -4,13 +4,13 @@
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moves_final_project/core/resources/app_string.dart';
 import 'package:moves_final_project/core/resources/auto_route.gr.dart';
 import 'package:moves_final_project/core/resources/colors_app.dart';
-import 'package:moves_final_project/core/resources/firebase_functions.dart';
 import 'package:moves_final_project/core/resources/image&icon.dart';
 import 'package:moves_final_project/core/resources/style_app.dart';
 import 'package:moves_final_project/di.dart';
@@ -108,24 +108,7 @@ class MovieDetailsScreen extends StatelessWidget {
                                     color: ColorsApp.textPrimary,size: 30,)
                                 ,),
                               IconButton(
-                                onPressed: () async {
-
-                                  Map<String, dynamic> movieData = {
-                                    "id": movie.id,
-                                    "title": movie.title,
-                                    "rating": movie.rating,
-                                    "year": movie.year,
-                                    "poster": movie.largeCoverImage,
-
-                                  };
-
-                                  await FirebaseFunctions.addToHistory(movieData);
-
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(content: Text("Added to WatchList")),
-                                  );
-
-                                },
+                                  onPressed: (){},
                                   icon:   ImageIcon(
                                     AssetImage(IconApp.saveIc),
                                     color: ColorsApp.textPrimary,size: 30,),
@@ -156,25 +139,7 @@ class MovieDetailsScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    CustomBtn(text: 'watch',
-                        onPressed: () async {
-
-                      Map<String, dynamic> movieData = {
-                        "id": movie.id,
-                        "title": movie.title,
-                        "rating": movie.rating,
-                        "year": movie.year,
-                        "poster": movie.largeCoverImage,
-
-                      };
-
-                      await FirebaseFunctions.addToWatchList(movieData);
-
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text("Added to History")),
-                      );
-
-                    },),
+                    CustomBtn(text: 'text watch'.tr(), onPressed: () {  },),
                  Row(
                    spacing: 10,
                    mainAxisAlignment: MainAxisAlignment.center,
