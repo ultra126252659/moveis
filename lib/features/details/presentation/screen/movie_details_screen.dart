@@ -122,7 +122,7 @@ class MovieDetailsScreen extends StatelessWidget {
                                   await FirebaseFunctions.addToHistory(movieData);
 
                                   ScaffoldMessenger.of(context).showSnackBar(
-                                    const SnackBar(content: Text("Added to WatchList")),
+                                    const SnackBar(content: Text("Added to History")),
                                   );
 
                                 },
@@ -171,7 +171,8 @@ class MovieDetailsScreen extends StatelessWidget {
                       await FirebaseFunctions.addToWatchList(movieData);
 
                       ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text("Added to History")),
+                        const SnackBar(content: Text("Added to WatchList")
+                        ),
                       );
 
                     },),

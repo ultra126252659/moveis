@@ -9,27 +9,29 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i8;
-import 'package:flutter/material.dart' as _i9;
+import 'package:auto_route/auto_route.dart' as _i9;
+import 'package:flutter/material.dart' as _i10;
 import 'package:moves_final_project/features/auth/presentation/login_screen.dart'
     as _i2;
 import 'package:moves_final_project/features/auth/presentation/register_screen.dart'
-    as _i5;
-import 'package:moves_final_project/features/auth/presentation/reset_password_screen.dart'
     as _i6;
+import 'package:moves_final_project/features/auth/presentation/reset_password_screen.dart'
+    as _i7;
 import 'package:moves_final_project/features/details/presentation/screen/movie_details_screen.dart'
     as _i3;
 import 'package:moves_final_project/features/home/presentation/screen/home_screen.dart'
     as _i1;
+import 'package:moves_final_project/features/home/presentation/screen/tabs/profile_tab.dart'
+    as _i5;
 import 'package:moves_final_project/features/onbording/presentation/Screen/Onboarding.dart'
     as _i4;
 import 'package:moves_final_project/features/onbording/presentation/Screen/splash_Screen.dart'
-    as _i7;
+    as _i8;
 
 /// generated route for
 /// [_i1.HomeScreen]
-class HomeRoute extends _i8.PageRouteInfo<HomeRouteArgs> {
-  HomeRoute({_i9.Key? key, List<_i8.PageRouteInfo>? children})
+class HomeRoute extends _i9.PageRouteInfo<HomeRouteArgs> {
+  HomeRoute({_i10.Key? key, List<_i9.PageRouteInfo>? children})
     : super(
         HomeRoute.name,
         args: HomeRouteArgs(key: key),
@@ -38,7 +40,7 @@ class HomeRoute extends _i8.PageRouteInfo<HomeRouteArgs> {
 
   static const String name = 'HomeRoute';
 
-  static _i8.PageInfo page = _i8.PageInfo(
+  static _i9.PageInfo page = _i9.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<HomeRouteArgs>(
@@ -52,7 +54,7 @@ class HomeRoute extends _i8.PageRouteInfo<HomeRouteArgs> {
 class HomeRouteArgs {
   const HomeRouteArgs({this.key});
 
-  final _i9.Key? key;
+  final _i10.Key? key;
 
   @override
   String toString() {
@@ -72,13 +74,13 @@ class HomeRouteArgs {
 
 /// generated route for
 /// [_i2.LoginScreen]
-class LoginRoute extends _i8.PageRouteInfo<void> {
-  const LoginRoute({List<_i8.PageRouteInfo>? children})
+class LoginRoute extends _i9.PageRouteInfo<void> {
+  const LoginRoute({List<_i9.PageRouteInfo>? children})
     : super(LoginRoute.name, initialChildren: children);
 
   static const String name = 'LoginRoute';
 
-  static _i8.PageInfo page = _i8.PageInfo(
+  static _i9.PageInfo page = _i9.PageInfo(
     name,
     builder: (data) {
       return const _i2.LoginScreen();
@@ -88,11 +90,11 @@ class LoginRoute extends _i8.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.MovieDetailsScreen]
-class MovieDetailsRoute extends _i8.PageRouteInfo<MovieDetailsRouteArgs> {
+class MovieDetailsRoute extends _i9.PageRouteInfo<MovieDetailsRouteArgs> {
   MovieDetailsRoute({
-    _i9.Key? key,
+    _i10.Key? key,
     required int movieId,
-    List<_i8.PageRouteInfo>? children,
+    List<_i9.PageRouteInfo>? children,
   }) : super(
          MovieDetailsRoute.name,
          args: MovieDetailsRouteArgs(key: key, movieId: movieId),
@@ -101,7 +103,7 @@ class MovieDetailsRoute extends _i8.PageRouteInfo<MovieDetailsRouteArgs> {
 
   static const String name = 'MovieDetailsRoute';
 
-  static _i8.PageInfo page = _i8.PageInfo(
+  static _i9.PageInfo page = _i9.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<MovieDetailsRouteArgs>();
@@ -113,7 +115,7 @@ class MovieDetailsRoute extends _i8.PageRouteInfo<MovieDetailsRouteArgs> {
 class MovieDetailsRouteArgs {
   const MovieDetailsRouteArgs({this.key, required this.movieId});
 
-  final _i9.Key? key;
+  final _i10.Key? key;
 
   final int movieId;
 
@@ -135,8 +137,8 @@ class MovieDetailsRouteArgs {
 
 /// generated route for
 /// [_i4.MoviesIntroScreen]
-class MoviesIntroRoute extends _i8.PageRouteInfo<MoviesIntroRouteArgs> {
-  MoviesIntroRoute({_i9.Key? key, List<_i8.PageRouteInfo>? children})
+class MoviesIntroRoute extends _i9.PageRouteInfo<MoviesIntroRouteArgs> {
+  MoviesIntroRoute({_i10.Key? key, List<_i9.PageRouteInfo>? children})
     : super(
         MoviesIntroRoute.name,
         args: MoviesIntroRouteArgs(key: key),
@@ -145,7 +147,7 @@ class MoviesIntroRoute extends _i8.PageRouteInfo<MoviesIntroRouteArgs> {
 
   static const String name = 'MoviesIntroRoute';
 
-  static _i8.PageInfo page = _i8.PageInfo(
+  static _i9.PageInfo page = _i9.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<MoviesIntroRouteArgs>(
@@ -159,7 +161,7 @@ class MoviesIntroRoute extends _i8.PageRouteInfo<MoviesIntroRouteArgs> {
 class MoviesIntroRouteArgs {
   const MoviesIntroRouteArgs({this.key});
 
-  final _i9.Key? key;
+  final _i10.Key? key;
 
   @override
   String toString() {
@@ -178,25 +180,41 @@ class MoviesIntroRouteArgs {
 }
 
 /// generated route for
-/// [_i5.RegisterScreen]
-class RegisterRoute extends _i8.PageRouteInfo<void> {
-  const RegisterRoute({List<_i8.PageRouteInfo>? children})
-    : super(RegisterRoute.name, initialChildren: children);
+/// [_i5.ProfileTab]
+class ProfileTab extends _i9.PageRouteInfo<void> {
+  const ProfileTab({List<_i9.PageRouteInfo>? children})
+    : super(ProfileTab.name, initialChildren: children);
 
-  static const String name = 'RegisterRoute';
+  static const String name = 'ProfileTab';
 
-  static _i8.PageInfo page = _i8.PageInfo(
+  static _i9.PageInfo page = _i9.PageInfo(
     name,
     builder: (data) {
-      return const _i5.RegisterScreen();
+      return const _i5.ProfileTab();
     },
   );
 }
 
 /// generated route for
-/// [_i6.ResetPasswordScreen]
-class ResetPasswordRoute extends _i8.PageRouteInfo<ResetPasswordRouteArgs> {
-  ResetPasswordRoute({_i9.Key? key, List<_i8.PageRouteInfo>? children})
+/// [_i6.RegisterScreen]
+class RegisterRoute extends _i9.PageRouteInfo<void> {
+  const RegisterRoute({List<_i9.PageRouteInfo>? children})
+    : super(RegisterRoute.name, initialChildren: children);
+
+  static const String name = 'RegisterRoute';
+
+  static _i9.PageInfo page = _i9.PageInfo(
+    name,
+    builder: (data) {
+      return const _i6.RegisterScreen();
+    },
+  );
+}
+
+/// generated route for
+/// [_i7.ResetPasswordScreen]
+class ResetPasswordRoute extends _i9.PageRouteInfo<ResetPasswordRouteArgs> {
+  ResetPasswordRoute({_i10.Key? key, List<_i9.PageRouteInfo>? children})
     : super(
         ResetPasswordRoute.name,
         args: ResetPasswordRouteArgs(key: key),
@@ -205,13 +223,13 @@ class ResetPasswordRoute extends _i8.PageRouteInfo<ResetPasswordRouteArgs> {
 
   static const String name = 'ResetPasswordRoute';
 
-  static _i8.PageInfo page = _i8.PageInfo(
+  static _i9.PageInfo page = _i9.PageInfo(
     name,
     builder: (data) {
       final args = data.argsAs<ResetPasswordRouteArgs>(
         orElse: () => const ResetPasswordRouteArgs(),
       );
-      return _i6.ResetPasswordScreen(key: args.key);
+      return _i7.ResetPasswordScreen(key: args.key);
     },
   );
 }
@@ -219,7 +237,7 @@ class ResetPasswordRoute extends _i8.PageRouteInfo<ResetPasswordRouteArgs> {
 class ResetPasswordRouteArgs {
   const ResetPasswordRouteArgs({this.key});
 
-  final _i9.Key? key;
+  final _i10.Key? key;
 
   @override
   String toString() {
@@ -238,17 +256,17 @@ class ResetPasswordRouteArgs {
 }
 
 /// generated route for
-/// [_i7.Splashscreen]
-class Splashscreen extends _i8.PageRouteInfo<void> {
-  const Splashscreen({List<_i8.PageRouteInfo>? children})
+/// [_i8.Splashscreen]
+class Splashscreen extends _i9.PageRouteInfo<void> {
+  const Splashscreen({List<_i9.PageRouteInfo>? children})
     : super(Splashscreen.name, initialChildren: children);
 
   static const String name = 'Splashscreen';
 
-  static _i8.PageInfo page = _i8.PageInfo(
+  static _i9.PageInfo page = _i9.PageInfo(
     name,
     builder: (data) {
-      return const _i7.Splashscreen();
+      return const _i8.Splashscreen();
     },
   );
 }

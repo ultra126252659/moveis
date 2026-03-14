@@ -1,11 +1,15 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:moves_final_project/core/resources/auto_route.gr.dart';
 import 'package:moves_final_project/core/resources/colors_app.dart';
+import 'package:moves_final_project/core/resources/firebase_functions.dart';
 import 'package:moves_final_project/features/auth/presentation/login_screen.dart';
 import 'package:moves_final_project/features/home/presentation/provider/UserProvider.dart';
 import 'package:moves_final_project/features/edit_profil/presentation/screen/Edit%20profile.dart';
 import 'package:moves_final_project/features/home/presentation/widget/card_item.dart';
 import 'package:provider/provider.dart';
 
+@RoutePage()
 class ProfileTab extends StatefulWidget {
   const ProfileTab({Key? key}) : super(key: key);
 
@@ -150,10 +154,9 @@ class _ProfileScreenState extends State<ProfileTab> {
                             ),
                           ),
                           onPressed: () {
-                            Navigator.pushNamed(
-                              context,
-                              LoginScreen.routeName,
-                            );
+                            FirebaseFunctions.signOut();
+                            context.pushRoute(LoginRoute());
+
                           },
                           icon: const Icon(
                             Icons.exit_to_app,

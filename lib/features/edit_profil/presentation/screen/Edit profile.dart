@@ -1,5 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:moves_final_project/core/resources/auto_route.gr.dart';
 import 'package:moves_final_project/core/resources/colors_app.dart';
 import 'package:moves_final_project/features/auth/presentation/login_screen.dart';
 import 'package:provider/provider.dart';
@@ -92,7 +94,9 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                               currentAvatarPath: _selectedAvatarPath,
                               onAvatarSelected: (newAvatar) {
                                 setState(() {
-                                  _selectedAvatarPath = newAvatar;
+                                  _selectedAvatarPath = (user!.avatar.isNotEmpty)
+                                      ? user.avatar
+                                      : "assets/images/avatar1.png";
                                 });
                               },
                             );
@@ -103,7 +107,9 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                               CircleAvatar(
                                 radius: 60,
                                 backgroundColor: Colors.grey[800],
-                                backgroundImage: AssetImage(_selectedAvatarPath),
+                                backgroundImage: AssetImage(_selectedAvatarPath.isNotEmpty
+                                    ? _selectedAvatarPath
+                                    : "assets/images/avatar1.png"),
                               ),
                               Container(
                                 padding: const EdgeInsets.all(8),
@@ -168,34 +174,25 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                       const SizedBox(height: 40),
                       ElevatedButton(
                         onPressed: () {
-                          showDialog(
-                            context: context,
-                            builder: (context) => AlertDialog(
-                              backgroundColor: const Color(0xFF282A28),
-                              title: const Text("Delete Account", style: TextStyle(color: Colors.redAccent)),
-                              content: const Text("هل أنت متأكد من مسح الحساب نهائياً؟ لا يمكن التراجع عن هذه الخطوة.", style: TextStyle(color: Colors.white)),
-                              actions: [
-                                TextButton(
-                                  onPressed: () => Navigator.pop(context),
-                                  child: const Text("Cancel", style: TextStyle(color: Colors.white54)),
+                          FirebaseFunctions.deleteAccount(
+                            onSuccess: () {
+                              context.pushRoute(LoginRoute());
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text("Account deleted successfully", style: const TextStyle(color: Colors.white)),
+                                  backgroundColor: Colors.green,
                                 ),
-                                TextButton(
-                                  onPressed: () {
-                                    FirebaseFunctions.deleteAccount(
-                                      onSuccess: () {
-                                        Navigator.pop(context);
-                                        Navigator.pushNamedAndRemoveUntil(context, LoginScreen.routeName, (route) => false);
-                                      },
-                                      onError: (error) {
-                                        Navigator.pop(context);
-                                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(error), backgroundColor: Colors.red));
-                                      },
-                                    );
-                                  },
-                                  child: const Text("Delete", style: TextStyle(color: Colors.redAccent, fontWeight: FontWeight.bold)),
+                              );
+                            },
+                            onError: (error) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text(error, style: const TextStyle(color: Colors.white)),
+                                  backgroundColor: Colors.redAccent,
                                 ),
-                              ],
-                            ),
+                              );
+                              print("Error deleting account: $error");
+                            }
                           );
                         },
                         style: ElevatedButton.styleFrom(

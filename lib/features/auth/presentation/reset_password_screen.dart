@@ -27,7 +27,7 @@ class ResetPasswordScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        iconTheme: const IconThemeData(color:ColorsApp.background),
+        iconTheme: const IconThemeData(color:ColorsApp.primaryGold),
         centerTitle: true,
         title: Text(
           AppString.hintTextForgetPassword,

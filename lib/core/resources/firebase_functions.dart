@@ -135,9 +135,10 @@ class FirebaseFunctions {
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'requires-recent-login') {
-        onError("لأسباب أمنية، يرجى تسجيل الخروج والدخول مجدداً لتتمكن من مسح الحساب.");
+        await FirebaseAuth.instance.signOut();
+        onError("For security reasons, you have been signed out. Please sign in again to delete your account");
       } else {
-        onError(e.message ?? "حدث خطأ أثناء مسح الحساب.");
+        onError(e.message ?? "Something went wrong.Please try deleting your account again later");
       }
     } catch (e) {
       onError(e.toString());
