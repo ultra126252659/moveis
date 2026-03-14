@@ -1,6 +1,7 @@
 
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:moves_final_project/core/resources/app_string.dart';
@@ -23,36 +24,36 @@ class MoviesIntroScreen extends StatelessWidget {
     final listRawPages = [
       _buildRawPage(
         imagePath: ImageApp.Onboarding1,
-        title: AppString.titleOnboarding1,
-        description: AppString.descriptionOnboarding1,
-        primaryButtonText: "Explore Now",
+        title: "titleOnboarding1".tr(),
+        description: "descriptionOnboarding1".tr(),
+        primaryButtonText: "text Explore Now".tr(),
         isFirstPage: true,
       ),
       _buildRawPage(
         imagePath: ImageApp.Onboarding2,
-        title: AppString.titleOnboarding2,
-        description: AppString.descriptionOnboarding2,
+        title:"titleOnboarding2".tr(),
+        description:"descriptionOnboarding2".tr(),
       ),
       _buildRawPage(
         imagePath: ImageApp.Onboarding3,
-        title: AppString.titleOnboarding3,
-        description: AppString.descriptionOnboarding3,
+        title: "titleOnboarding3".tr(),
+        description:"descriptionOnboarding3".tr(),
       ),
       _buildRawPage(
         imagePath: ImageApp.Onboarding4,
-        title: AppString.titleOnboarding4,
-        description: AppString.descriptionOnboarding4,
+        title:"titleOnboarding4".tr(),
+        description:"descriptionOnboarding4".tr(),
       ),
       _buildRawPage(
         imagePath: ImageApp.Onboarding5,
-        title: AppString.titleOnboarding5,
-        description: AppString.descriptionOnboarding5,
+        title:"titleOnboarding5".tr(),
+        description: "descriptionOnboarding5".tr(),
       ),
       _buildRawPage(
         imagePath: ImageApp.Onboarding6,
-        title: AppString.titleOnboarding6,
-        description: AppString.descriptionOnboarding6,
-        primaryButtonText: "Finish",
+        title:"titleOnboarding6".tr(),
+        description:"descriptionOnboarding6".tr(),
+        primaryButtonText: "text Finish".tr(),
         isLastPage: true,
         context: context,
       ),
@@ -172,7 +173,7 @@ class MoviesIntroScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(12)),
                       ),
                       child: const Text(
-                        "Back",
+                        "text Back",
                         style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                     ),

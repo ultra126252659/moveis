@@ -4,13 +4,13 @@
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moves_final_project/core/resources/app_string.dart';
 import 'package:moves_final_project/core/resources/auto_route.gr.dart';
 import 'package:moves_final_project/core/resources/colors_app.dart';
-import 'package:moves_final_project/core/resources/firebase_functions.dart';
 import 'package:moves_final_project/core/resources/image&icon.dart';
 import 'package:moves_final_project/core/resources/style_app.dart';
 import 'package:moves_final_project/di.dart';
@@ -108,6 +108,7 @@ class MovieDetailsScreen extends StatelessWidget {
                                     color: ColorsApp.textPrimary,size: 30,)
                                 ,),
                               IconButton(
+                                  onPressed: (){},
                                 onPressed: () async {
 
                                   Map<String, dynamic> movieData = {
